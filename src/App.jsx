@@ -3,6 +3,7 @@ import "./index.css";
 
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import TodoList from "./components/TodoList";
 import { supabase } from "./supabase";
 
 function App() {
@@ -215,11 +216,12 @@ function App() {
               </span>
             </div>
           </div>
+
+          <TodoList user={user} />
         </main>
       </div>
     );
   }
-
   // Trang chủ
   return (
     <div className="app">
