@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 
-function TodoList({ user }) {
+function TodoList({ user, onStatsChange }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [loading, setLoading] = useState(true);
@@ -107,7 +107,24 @@ function TodoList({ user }) {
     tasks.length === 0
       ? 0
       : Math.round((completedTasks / tasks.length) * 100);
+useEffect(() => {
+  const completed = tasks.filter(
+    (task) => task.completed
+  ).length;
 
+  const progress =
+    tasks.length === 0
+      ? 0
+      : Math.round((completed / tasks.length) * 100);
+
+  if (onStatsChange) {
+    onStatsChange({
+      total: tasks.length,
+      completed,
+      progress,
+    });
+  }
+}, [tasks, onStatsChange]);
   if (loading) {
     return (
       <div className="hero-card">

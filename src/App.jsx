@@ -10,6 +10,11 @@ function App() {
   const [page, setPage] = useState("home");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [taskStats, setTaskStats] = useState({
+  total: 0,
+  completed: 0,
+  progress: 0,
+});
 
   // Kiểm tra trạng thái đăng nhập khi mở web
   useEffect(() => {
@@ -184,8 +189,8 @@ function App() {
               <p>MỤC TIÊU</p>
 
               <h2 style={{ fontSize: "35px" }}>
-                0
-              </h2>
+  {taskStats.total}
+</h2>
 
               <span style={{ color: "#829aaa" }}>
                 mục tiêu hôm nay
@@ -195,9 +200,9 @@ function App() {
             <div className="hero-card">
               <p>TIẾN ĐỘ</p>
 
-              <h2 style={{ fontSize: "35px" }}>
-                0%
-              </h2>
+             <h2 style={{ fontSize: "35px" }}>
+  {taskStats.progress}%
+</h2>
 
               <span style={{ color: "#829aaa" }}>
                 đã hoàn thành
@@ -217,7 +222,10 @@ function App() {
             </div>
           </div>
 
-          <TodoList user={user} />
+          <TodoList
+  user={user}
+  onStatsChange={setTaskStats}
+/>
         </main>
       </div>
     );
