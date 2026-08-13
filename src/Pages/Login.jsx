@@ -1,0 +1,113 @@
+import { useState } from "react";
+
+function Login({ onRegister, onLoginSuccess }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const savedUser = localStorage.getItem("zeigoraUser");
+
+    if (!savedUser) {
+      setMessage("Chưa có tài khoản. Vui lòng đăng ký trước.");
+      return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    if (email === user.email && password === user.password) {
+      localStorage.setItem("zeigoraLoggedIn", "true");
+
+      setMessage("Đăng nhập thành công!");
+
+      setTimeout(() => {
+        onLoginSuccess(user);
+      }, 500);
+
+      return;
+    }
+
+    setMessage("Email hoặc mật khẩu không chính xác.");
+  };
+
+  return (
+    <div className="login-page">
+      <div className="login-box">
+
+        <div className="logo">
+          <span className="logo-icon">Z</span>
+          ZEIGORA
+        </div>
+
+        <h1>Chào mừng trở lại</h1>
+
+        <p className="login-description">
+          Đăng nhập để tiếp tục theo dõi mục tiêu và tiến trình học tập của bạn.
+        </p>
+
+        <form onSubmit={handleLogin}>
+
+          <div className="input-group">
+            <label>Email</label>
+
+            <input
+              type="email"
+              placeholder="Nhập email của bạn"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Mật khẩu</label>
+
+            <input
+              type="password"
+              placeholder="Nhập mật khẩu"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="login-submit"
+          >
+            Đăng nhập
+          </button>
+
+        </form>
+
+        {message && (
+          <p
+            style={{
+              marginTop: "15px",
+              textAlign: "center",
+              color: "#b7d5e6",
+              fontSize: "13px",
+            }}
+          >
+            {message}
+          </p>
+        )}
+
+        <p className="register-text">
+          Chưa có tài khoản?{" "}
+
+          <button
+            type="button"
+            className="text-button"
+            onClick={onRegister}
+          >
+            Đăng ký ngay
+          </button>
+        </p>
+
+      </div>
+    </div>
+  );
+}
+
+export default Login;
