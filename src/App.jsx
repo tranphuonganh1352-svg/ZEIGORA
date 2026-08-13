@@ -235,10 +235,17 @@ function App() {
 >
   <p>TIẾN ĐỘ MỤC TIÊU</p>
 
-  <div className="circle">
+  <div
+  className="progress-circle"
+  style={{
+    "--progress": `${taskStats.progress * 3.6}deg`,
+  }}
+>
+  <div className="progress-circle-inner">
     <strong>{taskStats.progress}%</strong>
     <span>hoàn thành</span>
   </div>
+</div>
 
   <p style={{ color: "#829aaa", marginTop: "15px" }}>
     {taskStats.completed}/{taskStats.total} mục tiêu đã hoàn thành
