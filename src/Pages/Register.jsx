@@ -1,43 +1,55 @@
 import { useState } from "react";
+import { supabase } from "../supabase";
 
-function Register({ onLogin }) {
+function Register({ onRegisterSuccess, onLogin }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!name || !email || !password) {
-      setMessage("Vui lòng điền đầy đủ thông tin.");
+      setMessage("Vui lòng nhập đầy đủ thông tin.");
       return;
     }
 
-    const existingUser = localStorage.getItem("zeigoraUser");
-
-    if (existingUser) {
-      const user = JSON.parse(existingUser);
-
-      if (user.email === email) {
-        setMessage("Email này đã được đăng ký.");
-        return;
-      }
+    if (password.length < 6) {
+      setMessage("Mật khẩu cần có ít nhất 6 ký tự.");
+      return;
     }
 
-    const newUser = {
-      name,
-      email,
-      password,
-    };
+    setLoading(true);
+    setMessage("");
 
-    localStorage.setItem("zeigoraUser", JSON.stringify(newUser));
+    const { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          full_name: name,
+        },
+      },
+    });
 
-    setMessage("Tạo tài khoản thành công! Hãy đăng nhập.");
+    setLoading(false);
 
-    setTimeout(() => {
-      onLogin();
-    }, 1000);
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    if (data.user) {
+      setMessage(
+        "Tạo tài khoản thành công! Hãy kiểm tra email để xác nhận tài khoản."
+      );
+
+      setName("");
+      setEmail("");
+      setPassword("");
+    }
   };
 
   return (
@@ -73,7 +85,7 @@ function Register({ onLogin }) {
 
             <input
               type="email"
-              placeholder="Nhập email của bạn"
+              placeholder="Nhập email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -90,27 +102,21 @@ function Register({ onLogin }) {
             />
           </div>
 
+          {message && (
+            <p style={{ marginTop: "10px" }}>
+              {message}
+            </p>
+          )}
+
           <button
             type="submit"
             className="login-submit"
+            disabled={loading}
           >
-            Tạo tài khoản
+            {loading ? "Đang tạo tài khoản..." : "Tạo tài khoản"}
           </button>
 
         </form>
-
-        {message && (
-          <p
-            style={{
-              marginTop: "15px",
-              textAlign: "center",
-              color: "#b7d5e6",
-              fontSize: "13px",
-            }}
-          >
-            {message}
-          </p>
-        )}
 
         <p className="register-text">
           Đã có tài khoản?{" "}

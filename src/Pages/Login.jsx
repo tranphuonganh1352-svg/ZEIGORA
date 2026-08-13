@@ -1,35 +1,52 @@
 import { useState } from "react";
+import { supabase } from "../supabase";
 
 function Login({ onRegister, onLoginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const savedUser = localStorage.getItem("zeigoraUser");
-
-    if (!savedUser) {
-      setMessage("Chưa có tài khoản. Vui lòng đăng ký trước.");
+    if (!email || !password) {
+      setMessage("Vui lòng nhập email và mật khẩu.");
       return;
     }
 
-    const user = JSON.parse(savedUser);
+    setLoading(true);
+    setMessage("");
 
-    if (email === user.email && password === user.password) {
-      localStorage.setItem("zeigoraLoggedIn", "true");
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
 
+    setLoading(false);
+
+    if (error) {
+      if (error.message.includes("Email not confirmed")) {
+        setMessage("Email chưa được xác nhận. Hãy kiểm tra hộp thư của bạn.");
+      } else {
+        setMessage("Email hoặc mật khẩu không chính xác.");
+      }
+      return;
+    }
+
+    if (data.user) {
       setMessage("Đăng nhập thành công!");
+
+      const user = {
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.user_metadata?.full_name || "",
+      };
 
       setTimeout(() => {
         onLoginSuccess(user);
       }, 500);
-
-      return;
     }
-
-    setMessage("Email hoặc mật khẩu không chính xác.");
   };
 
   return (
@@ -74,8 +91,9 @@ function Login({ onRegister, onLoginSuccess }) {
           <button
             type="submit"
             className="login-submit"
+            disabled={loading}
           >
-            Đăng nhập
+            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
           </button>
 
         </form>

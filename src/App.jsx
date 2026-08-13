@@ -1,24 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./index.css";
 
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import { supabase } from "./supabase";
 
 function App() {
   const [page, setPage] = useState("home");
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const handleLoginSuccess = (loggedInUser) => {
-    setUser(loggedInUser);
-    setPage("dashboard");
-  };
+  // Kiểm tra trạng thái đăng nhập khi mở web
+  useEffect(() => {
+    const getSession = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      if (data.session?.user) {
+        const currentUser = data.session.user;
+
+        setUser({
+          id: currentUser.id,
+          email: currentUser.email,
+          name: currentUser.user_metadata?.full_name || "Bạn",
+        });
+
+        setPage("dashboard");
+      }
+
+      setLoading(false);
+    };
+
+    getSession();
+
+    // Theo dõi đăng nhập / đăng xuất
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        const currentUser = session.user;
+
+        setUser({
+          id: currentUser.id,
+          email: currentUser.email,
+          name: currentUser.user_metadata?.full_name || "Bạn",
+        });
+
+        setPage("dashboard");
+      } else {
+        setUser(null);
+        setPage("home");
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  // Hiển thị trong lúc kiểm tra đăng nhập
+  if (loading) {
+    return (
+      <div
+        className="app"
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <p style={{ color: "#b7d5e6" }}>
+          Đang mở ZEIGORA...
+        </p>
+      </div>
+    );
+  }
 
   // Đăng nhập
   if (page === "login") {
     return (
       <Login
         onRegister={() => setPage("register")}
-        onLoginSuccess={handleLoginSuccess}
+        onLoginSuccess={(loggedInUser) => {
+          setUser(loggedInUser);
+          setPage("dashboard");
+        }}
       />
     );
   }
@@ -32,7 +98,14 @@ function App() {
     );
   }
 
-  // Dashboard sau khi đăng nhập
+  // Đăng xuất
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setPage("home");
+  };
+
+  // Dashboard
   if (page === "dashboard") {
     return (
       <div className="app">
@@ -43,18 +116,25 @@ function App() {
             ZEIGORA
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <span style={{ color: "#a7b8c5", fontSize: "14px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "15px",
+            }}
+          >
+            <span
+              style={{
+                color: "#a7b8c5",
+                fontSize: "14px",
+              }}
+            >
               Xin chào, {user?.name}
             </span>
 
             <button
               className="login-button"
-              onClick={() => {
-                localStorage.removeItem("zeigoraLoggedIn");
-                setUser(null);
-                setPage("home");
-              }}
+              onClick={handleLogout}
             >
               Đăng xuất
             </button>
@@ -73,7 +153,12 @@ function App() {
             KHÔNG GIAN CÁ NHÂN
           </p>
 
-          <h1 style={{ fontSize: "48px", marginBottom: "15px" }}>
+          <h1
+            style={{
+              fontSize: "48px",
+              marginBottom: "15px",
+            }}
+          >
             Chào mừng,{" "}
             <span style={{ color: "#91b9d2" }}>
               {user?.name}
@@ -89,13 +174,18 @@ function App() {
             style={{
               marginTop: "40px",
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gridTemplateColumns:
+                "repeat(auto-fit, minmax(220px, 1fr))",
               gap: "20px",
             }}
           >
             <div className="hero-card">
               <p>MỤC TIÊU</p>
-              <h2 style={{ fontSize: "35px" }}>0</h2>
+
+              <h2 style={{ fontSize: "35px" }}>
+                0
+              </h2>
+
               <span style={{ color: "#829aaa" }}>
                 mục tiêu hôm nay
               </span>
@@ -103,7 +193,11 @@ function App() {
 
             <div className="hero-card">
               <p>TIẾN ĐỘ</p>
-              <h2 style={{ fontSize: "35px" }}>0%</h2>
+
+              <h2 style={{ fontSize: "35px" }}>
+                0%
+              </h2>
+
               <span style={{ color: "#829aaa" }}>
                 đã hoàn thành
               </span>
@@ -111,7 +205,11 @@ function App() {
 
             <div className="hero-card">
               <p>POMODORO</p>
-              <h2 style={{ fontSize: "35px" }}>25:00</h2>
+
+              <h2 style={{ fontSize: "35px" }}>
+                25:00
+              </h2>
+
               <span style={{ color: "#829aaa" }}>
                 thời gian tập trung
               </span>
