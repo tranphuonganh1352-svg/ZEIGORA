@@ -571,14 +571,12 @@ button {
   height: 180px;
   margin: 25px auto;
   border-radius: 50%;
-  background: conic-gradient(
-    #91b9d2 var(--progress),
-    rgba(255, 255, 255, 0.08) var(--progress)
-  );
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: background 0.5s ease;
 }
 
 .progress-circle-inner {

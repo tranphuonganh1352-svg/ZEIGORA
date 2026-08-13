@@ -235,10 +235,13 @@ function App() {
 >
   <p>TIẾN ĐỘ MỤC TIÊU</p>
 
-  <div
+ <div
   className="progress-circle"
   style={{
-    "--progress": `${taskStats.progress * 3.6}deg`,
+    background: `conic-gradient(
+      #91b9d2 ${taskStats.progress * 3.6}deg,
+      rgba(255, 255, 255, 0.08) ${taskStats.progress * 3.6}deg
+    )`,
   }}
 >
   <div className="progress-circle-inner">
