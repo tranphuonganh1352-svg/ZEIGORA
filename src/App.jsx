@@ -226,6 +226,24 @@ function App() {
   user={user}
   onStatsChange={setTaskStats}
 />
+<div
+  className="hero-card"
+  style={{
+    marginTop: "30px",
+    textAlign: "center",
+  }}
+>
+  <p>TIẾN ĐỘ MỤC TIÊU</p>
+
+  <div className="circle">
+    <strong>{taskStats.progress}%</strong>
+    <span>hoàn thành</span>
+  </div>
+
+  <p style={{ color: "#829aaa", marginTop: "15px" }}>
+    {taskStats.completed}/{taskStats.total} mục tiêu đã hoàn thành
+  </p>
+</div>
         </main>
       </div>
     );
