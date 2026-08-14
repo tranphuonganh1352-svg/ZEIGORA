@@ -5,6 +5,7 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import TodoList from "./components/TodoList";
 import { supabase } from "./supabase";
+import Pomodoro from "./components/Pomodoro";
 
 function App() {
   const [page, setPage] = useState("home");
@@ -215,7 +216,7 @@ function App() {
               <h2 style={{ fontSize: "35px" }}>
                 25:00
               </h2>
-
+<Pomodoro />
               <span style={{ color: "#829aaa" }}>
                 thời gian tập trung
               </span>
