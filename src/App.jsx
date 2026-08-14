@@ -209,15 +209,9 @@ function App() {
                 đã hoàn thành
               </span>
             </div>
+            <div>
 
-            <div className="hero-card">
-              <p>POMODORO</p>
-
-              <h2 style={{ fontSize: "35px" }}>
-                25:00
-              </h2>
-<Pomodoro />
-              <span style={{ color: "#829aaa" }}>
+<Pomodoro user={user} />              <span style={{ color: "#829aaa" }}>
                 thời gian tập trung
               </span>
             </div>

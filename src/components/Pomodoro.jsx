@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { supabase } from "../supabase";
 
-function Pomodoro() {
-  const WORK_TIME = 25 * 60;
+function Pomodoro({ user }) {  const WORK_TIME = 25 * 60;
 
   const [seconds, setSeconds] = useState(WORK_TIME);
   const [running, setRunning] = useState(false);
@@ -10,10 +10,26 @@ function Pomodoro() {
     if (!running) return;
 
     if (seconds === 0) {
-      setRunning(false);
-      alert("Hoàn thành một phiên Pomodoro! 🎉");
+  setRunning(false);
+
+  if (user?.id) {
+    const { error } = await supabase
+      .from("pomodoro_sessions")
+      .insert({
+        user_id: user.id,
+        duration: 25,
+      });
+
+    if (error) {
+      console.error("Lỗi lưu Pomodoro:", error);
+      alert("Không thể lưu phiên Pomodoro.");
       return;
     }
+  }
+
+  alert("Hoàn thành một phiên Pomodoro! 🎉");
+  return;
+}
 
     const timer = setInterval(() => {
       setSeconds((prev) => prev - 1);
