@@ -16,7 +16,44 @@ function App() {
   completed: 0,
   progress: 0,
 });
+const [pomodoroStats, setPomodoroStats] = useState({
+  sessions: 0,
+  minutes: 0,
+});
+const loadPomodoroStats = async () => {
+  if (!user?.id) return;
 
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const { data, error } = await supabase
+    .from("pomodoro_sessions")
+    .select("duration")
+    .eq("user_id", user.id)
+    .gte("completed_at", startOfDay.toISOString());
+
+  if (error) {
+    console.error("Lỗi lấy Pomodoro:", error);
+    return;
+  }
+
+  const sessions = data?.length || 0;
+
+  const minutes = (data || []).reduce(
+    (total, session) => total + Number(session.duration || 0),
+    0
+  );
+
+  setPomodoroStats({
+    sessions,
+    minutes,
+  });
+};
+useEffect(() => {
+  if (!user?.id) return;
+
+  loadPomodoroStats();
+}, [user]);
   // Kiểm tra trạng thái đăng nhập khi mở web
   useEffect(() => {
     const getSession = async () => {
@@ -63,7 +100,11 @@ function App() {
       subscription.unsubscribe();
     };
   }, []);
+useEffect(() => {
+  if (!user?.id) return;
 
+  loadPomodoroStats();
+}, [user]);
   // Hiển thị trong lúc kiểm tra đăng nhập
   if (loading) {
     return (
@@ -111,7 +152,35 @@ function App() {
     setUser(null);
     setPage("home");
   };
+const loadPomodoroStats = async () => {
+  if (!user?.id) return;
 
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const { data, error } = await supabase
+    .from("pomodoro_sessions")
+    .select("duration")
+    .eq("user_id", user.id)
+    .gte("completed_at", startOfDay.toISOString());
+
+  if (error) {
+    console.error("Lỗi lấy Pomodoro:", error);
+    return;
+  }
+
+  const sessions = data?.length || 0;
+
+  const minutes = (data || []).reduce(
+    (total, session) => total + Number(session.duration || 0),
+    0
+  );
+
+  setPomodoroStats({
+    sessions,
+    minutes,
+  });
+};
   // Dashboard
   if (page === "dashboard") {
     return (
@@ -211,12 +280,39 @@ function App() {
             </div>
             <div>
 
-<Pomodoro user={user} />              <span style={{ color: "#829aaa" }}>
+<Pomodoro user={user} />
+              <span style={{ color: "#829aaa" }}>
                 thời gian tập trung
               </span>
             </div>
           </div>
+<div
+  className="hero-card"
+  style={{
+    marginTop: "20px",
+    textAlign: "center",
+  }}
+>
+  <p>POMODORO HÔM NAY</p>
 
+  <h2 style={{ fontSize: "35px" }}>
+    {pomodoroStats.sessions}
+  </h2>
+
+  <span style={{ color: "#829aaa" }}>
+    phiên tập trung
+  </span>
+
+  <p
+    style={{
+      color: "#91b9d2",
+      marginTop: "12px",
+      fontSize: "18px",
+    }}
+  >
+    {pomodoroStats.minutes} phút tập trung
+  </p>
+</div>
           <TodoList
   user={user}
   onStatsChange={setTaskStats}
