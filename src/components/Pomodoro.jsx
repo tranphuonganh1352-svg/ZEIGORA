@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 
-function Pomodoro({ user }) {  const WORK_TIME = 25 * 60;
+function Pomodoro({ user }) {
+  const WORK_TIME = 25 * 60;
 
   const [seconds, setSeconds] = useState(WORK_TIME);
   const [running, setRunning] = useState(false);
@@ -9,34 +10,49 @@ function Pomodoro({ user }) {  const WORK_TIME = 25 * 60;
   useEffect(() => {
     if (!running) return;
 
-    if (seconds === 0) {
-  setRunning(false);
-
-  if (user?.id) {
-    const { error } = await supabase
-      .from("pomodoro_sessions")
-      .insert({
-        user_id: user.id,
-        duration: 25,
-      });
-
-    if (error) {
-      console.error("Lỗi lưu Pomodoro:", error);
-      alert("Không thể lưu phiên Pomodoro.");
-      return;
-    }
-  }
-
-  alert("Hoàn thành một phiên Pomodoro! 🎉");
-  return;
-}
-
     const timer = setInterval(() => {
-      setSeconds((prev) => prev - 1);
+      setSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+
+        return prev - 1;
+      });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [running, seconds]);
+  }, [running]);
+
+  useEffect(() => {
+    if (seconds !== 0 || !running) return;
+
+    const saveSession = async () => {
+      setRunning(false);
+
+      if (!user?.id) {
+        alert("Không tìm thấy tài khoản.");
+        return;
+      }
+
+      const { error } = await supabase
+        .from("pomodoro_sessions")
+        .insert({
+          user_id: user.id,
+          duration: 25,
+        });
+
+      if (error) {
+        console.error("Lỗi lưu Pomodoro:", error);
+        alert("Không thể lưu phiên Pomodoro.");
+        return;
+      }
+
+      alert("Hoàn thành một phiên Pomodoro! 🎉");
+    };
+
+    saveSession();
+  }, [seconds, running, user]);
 
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
