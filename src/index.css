@@ -1784,3 +1784,79 @@ main[style] > div[style*="grid"] .hero-card h2 {
     padding: 20px;
   }
 }
+/* =========================================================
+   QUICK ACCESS — TEXT FIX
+   ========================================================= */
+
+.quick-card,
+.feature-card,
+.research-card,
+.achievement-card,
+.survey-card {
+  color: var(--text) !important;
+}
+
+.quick-card *,
+.feature-card *,
+.research-card *,
+.achievement-card *,
+.survey-card * {
+  color: inherit;
+}
+
+.quick-card p,
+.feature-card p,
+.research-card p,
+.achievement-card p,
+.survey-card p {
+  color: var(--text-soft) !important;
+}
+
+.quick-card h2,
+.quick-card h3,
+.feature-card h2,
+.feature-card h3,
+.research-card h2,
+.research-card h3,
+.achievement-card h2,
+.achievement-card h3,
+.survey-card h2,
+.survey-card h3 {
+  color: var(--text) !important;
+}
+
+.quick-card a,
+.feature-card a,
+.research-card a,
+.achievement-card a,
+.survey-card a {
+  color: var(--accent) !important;
+  text-decoration: none;
+}
+
+/* =========================================================
+   DASHBOARD — CENTER FIX
+   ========================================================= */
+
+main[style] {
+  width: min(1100px, calc(100% - 48px)) !important;
+  max-width: 1100px !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  position: relative;
+  left: auto !important;
+}
+
+/* Không cho quick access làm tràn ngang */
+
+main[style] > * {
+  max-width: 100%;
+}
+
+@media (max-width: 700px) {
+  main[style] {
+    width: calc(100% - 32px) !important;
+  }
+}
