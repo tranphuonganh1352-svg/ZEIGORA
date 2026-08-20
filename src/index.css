@@ -1,0 +1,1158 @@
+/* ================================
+   ZEIGORA - GLOBAL
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(91, 145, 180, 0.16),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #071522 0%, #0a1b2a 55%, #071521 100%);
+
+  color: #f4f8fb;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ================================
+   APP
+================================ */
+
+.app {
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(103, 164, 201, 0.10),
+      transparent 28%
+    ),
+    linear-gradient(135deg, #071522, #0a1b2a 55%, #071522);
+
+  color: #f5f8fa;
+}
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  height: 76px;
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(7, 21, 34, 0.82);
+  border-bottom: 1px solid rgba(157, 193, 214, 0.12);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #dceaf2
+  );
+
+  color: #102435;
+
+  font-size: 20px;
+  font-weight: 900;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* ================================
+   NAVIGATION
+================================ */
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-left: auto;
+  margin-right: 22px;
+}
+
+.nav-link {
+  border: 1px solid transparent;
+  background: transparent;
+
+  color: #91aabd;
+
+  padding: 10px 14px;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border 0.2s ease,
+    transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #f5f9fc;
+  background: rgba(145, 185, 210, 0.08);
+}
+
+.nav-link.active {
+  color: #ffffff;
+
+  background: rgba(145, 185, 210, 0.13);
+
+  border-color: rgba(145, 185, 210, 0.22);
+
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* ================================
+   LOGIN / HEADER BUTTON
+================================ */
+
+.login-button {
+  border: 1px solid rgba(157, 193, 214, 0.25);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #f2f7fa;
+
+  padding: 10px 18px;
+  border-radius: 11px;
+
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    border 0.2s ease,
+    transform 0.2s ease;
+}
+
+.login-button:hover {
+  background: rgba(145, 185, 210, 0.12);
+  border-color: rgba(145, 185, 210, 0.42);
+
+  transform: translateY(-1px);
+}
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+  max-width: 1180px;
+  margin: 0 auto;
+
+  min-height: calc(100vh - 76px);
+
+  padding: 90px 30px;
+
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+
+  align-items: center;
+  gap: 70px;
+}
+
+.hero-content {
+  max-width: 680px;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+
+  margin: 0 0 25px;
+
+  padding: 8px 14px;
+
+  border: 1px solid rgba(145, 185, 210, 0.22);
+  border-radius: 999px;
+
+  color: #8eb7d1;
+
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+
+  background: rgba(145, 185, 210, 0.05);
+}
+
+.hero h1 {
+  margin: 0;
+
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 1.02;
+
+  letter-spacing: -3px;
+}
+
+.hero h1 span {
+  color: #91b9d2;
+}
+
+.description {
+  max-width: 650px;
+
+  margin-top: 25px;
+
+  color: #9fb3c1;
+
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+
+.buttons {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 32px;
+}
+
+.primary-button,
+.secondary-button {
+  border-radius: 12px;
+
+  padding: 13px 22px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.primary-button {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+
+  background: #f7fafc;
+  color: #10202c;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.28);
+}
+
+.secondary-button {
+  border: 1px solid rgba(145, 185, 210, 0.25);
+
+  background: rgba(145, 185, 210, 0.06);
+
+  color: #d7e7ef;
+}
+
+.secondary-button:hover {
+  background: rgba(145, 185, 210, 0.12);
+
+  transform: translateY(-2px);
+}
+
+.author {
+  margin-top: 35px;
+
+  color: #667f90;
+  font-size: 13px;
+}
+
+.author strong {
+  color: #9bb7c8;
+}
+
+/* ================================
+   HERO CARD
+================================ */
+
+.hero-card {
+  padding: 30px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(33, 54, 70, 0.95),
+      rgba(24, 43, 58, 0.88)
+    );
+
+  border: 1px solid rgba(164, 199, 218, 0.16);
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.hero-card > p:first-child {
+  margin-top: 0;
+
+  color: #87a8bb;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.hero-card h2 {
+  margin: 18px 0 4px;
+
+  color: #f5f9fb;
+}
+
+.hero-card span {
+  color: #829aaa;
+}
+
+/* ================================
+   CIRCLE
+================================ */
+
+.circle {
+  width: 180px;
+  height: 180px;
+
+  margin: 30px auto;
+
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle,
+      #102838 58%,
+      transparent 59%
+    ),
+    conic-gradient(
+      #91b9d2 0deg,
+      #91b9d2 260deg,
+      rgba(255,255,255,0.08) 260deg
+    );
+
+  box-shadow:
+    0 0 45px rgba(145, 185, 210, 0.08);
+}
+
+.circle strong {
+  font-size: 38px;
+}
+
+.circle span {
+  margin-top: 5px;
+}
+
+/* ================================
+   STATS
+================================ */
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+.stats > div {
+  padding: 18px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,0.035);
+
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.stats strong,
+.stats span {
+  display: block;
+}
+
+.stats strong {
+  font-size: 25px;
+}
+
+.stats span {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+/* ================================
+   DASHBOARD
+================================ */
+
+main[style] {
+  color: #f5f8fa;
+}
+
+main[style] .description {
+  margin-bottom: 0;
+}
+
+main[style] .hero-card {
+  min-height: 145px;
+}
+
+/* ================================
+   POMODORO
+================================ */
+
+.pomodoro-wrapper {
+  margin-top: 28px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px 180px;
+
+  gap: 18px;
+
+  align-items: stretch;
+}
+
+.pomodoro-card {
+  position: relative;
+
+  padding: 30px;
+
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(145, 185, 210, 0.09),
+      transparent 40%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(32, 53, 69, 0.98),
+      rgba(18, 36, 50, 0.96)
+    );
+
+  border: 1px solid rgba(145, 185, 210, 0.16);
+
+  box-shadow:
+    0 20px 55px rgba(0,0,0,0.18);
+
+  text-align: center;
+}
+
+.pomodoro-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  text-align: left;
+}
+
+.pomodoro-eyebrow {
+  color: #86aabd;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.pomodoro-header h3 {
+  margin: 5px 0 0;
+
+  font-size: 20px;
+}
+
+.pomodoro-session {
+  color: #7894a6;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+/* Timer circle */
+
+.pomodoro-timer-wrapper {
+  position: relative;
+
+  width: 260px;
+  height: 260px;
+
+  margin: 25px auto;
+}
+
+.pomodoro-progress {
+  width: 100%;
+  height: 100%;
+
+  transform: rotate(-90deg);
+}
+
+.progress-track,
+.progress-value {
+  fill: none;
+  stroke-width: 9;
+}
+
+.progress-track {
+  stroke: rgba(255,255,255,0.07);
+}
+
+.progress-value {
+  stroke: #91b9d2;
+
+  stroke-linecap: round;
+
+  transition:
+    stroke-dashoffset 0.4s linear;
+}
+
+.pomodoro-timer-content {
+  position: absolute;
+
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.pomodoro-time {
+  font-size: 44px;
+  font-weight: 800;
+
+  letter-spacing: -2px;
+}
+
+.pomodoro-status {
+  margin-top: 8px;
+
+  color: #7897aa;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.pomodoro-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+
+  margin: 10px 0 18px;
+}
+
+.pomodoro-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.13);
+}
+
+.pomodoro-dot.active {
+  background: #91b9d2;
+
+  box-shadow:
+    0 0 10px rgba(145,185,210,0.5);
+}
+
+.pomodoro-description {
+  margin: 0 auto 22px;
+
+  max-width: 420px;
+
+  color: #829aaa;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.pomodoro-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.pomodoro-buttons .primary-button {
+  min-width: 145px;
+}
+
+.reset-button {
+  width: 46px;
+  height: 46px;
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(145,185,210,0.18);
+
+  background: rgba(255,255,255,0.04);
+
+  color: #a9c0cd;
+
+  font-size: 22px;
+
+  transition: 0.2s ease;
+}
+
+.reset-button:hover {
+  background: rgba(145,185,210,0.1);
+
+  transform: rotate(-25deg);
+}
+
+.button-icon {
+  margin-right: 7px;
+}
+
+/* ================================
+   POMODORO STATS
+================================ */
+
+.pomodoro-stat {
+  min-height: 160px;
+
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  border-radius: 20px;
+
+  background: rgba(28, 48, 64, 0.82);
+
+  border: 1px solid rgba(145,185,210,0.13);
+}
+
+.pomodoro-stat span {
+  font-size: 38px;
+  font-weight: 800;
+
+  color: #eef6fa;
+}
+
+.pomodoro-stat small {
+  margin-top: 8px;
+
+  color: #7f99a9;
+
+  font-size: 12px;
+}
+
+/* ================================
+   TODO
+================================ */
+
+.todo-container,
+.todo-list,
+.todo-card {
+  margin-top: 30px;
+}
+
+input,
+textarea {
+  color: #edf5f8;
+
+  background: rgba(255,255,255,0.04);
+
+  border: 1px solid rgba(145,185,210,0.16);
+
+  border-radius: 11px;
+
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(145,185,210,0.5);
+
+  box-shadow:
+    0 0 0 3px rgba(145,185,210,0.08);
+}
+
+/* ================================
+   PROGRESS CIRCLE
+================================ */
+
+.progress-circle {
+  width: 180px;
+  height: 180px;
+
+  margin: 25px auto;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-circle-inner {
+  width: 145px;
+  height: 145px;
+
+  border-radius: 50%;
+
+  background: #162c3b;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-circle-inner strong {
+  font-size: 32px;
+}
+
+.progress-circle-inner span {
+  color: #829aaa;
+
+  font-size: 12px;
+}
+
+/* ================================
+   QUICK ACCESS
+================================ */
+
+.quick-access {
+  margin-top: 50px;
+}
+
+.quick-access h2 {
+  margin-bottom: 20px;
+
+  font-size: 28px;
+}
+
+.quick-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.quick-card {
+  min-height: 170px;
+
+  padding: 24px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(31,53,69,0.95),
+      rgba(20,39,53,0.9)
+    );
+
+  border: 1px solid rgba(145,185,210,0.13);
+
+  transition:
+    transform 0.2s ease,
+    border 0.2s ease,
+    background 0.2s ease;
+}
+
+.quick-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(145,185,210,0.3);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(38,62,80,0.98),
+      rgba(22,43,58,0.95)
+    );
+}
+
+.quick-card h3 {
+  margin: 14px 0 8px;
+}
+
+.quick-card p {
+  color: #829aaa;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ================================
+   RESEARCH / OTHER PAGES
+================================ */
+
+.page-container {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 70px 25px;
+}
+
+.page-header {
+  max-width: 750px;
+
+  margin-bottom: 45px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  font-size: clamp(38px, 5vw, 60px);
+
+  letter-spacing: -2px;
+}
+
+.page-header p {
+  color: #91aabd;
+
+  font-size: 16px;
+  line-height: 1.8;
+
+  margin-top: 18px;
+}
+
+.content-card {
+  padding: 28px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(31,53,69,0.92),
+      rgba(20,39,53,0.88)
+    );
+
+  border: 1px solid rgba(145,185,210,0.13);
+
+  margin-bottom: 18px;
+}
+
+.content-card h2,
+.content-card h3 {
+  margin-top: 0;
+}
+
+.content-card p {
+  color: #9eb2bf;
+
+  line-height: 1.8;
+}
+
+/* ================================
+   ACHIEVEMENTS
+================================ */
+
+.achievement-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+.achievement-card {
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background: rgba(30,50,66,0.9);
+
+  border: 1px solid rgba(145,185,210,0.13);
+
+  transition: 0.2s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(145,185,210,0.3);
+}
+
+.achievement-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: rgba(145,185,210,0.1);
+
+  color: #a6c8da;
+
+  font-size: 22px;
+}
+
+.achievement-card h3 {
+  margin: 18px 0 8px;
+}
+
+.achievement-card p {
+  color: #829aaa;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ================================
+   SURVEY
+================================ */
+
+.survey-card {
+  max-width: 760px;
+
+  margin: 0 auto;
+
+  padding: 45px;
+
+  text-align: center;
+
+  border-radius: 25px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(145,185,210,0.12),
+      transparent 50%
+    ),
+    rgba(27,48,64,0.92);
+
+  border: 1px solid rgba(145,185,210,0.18);
+
+  box-shadow:
+    0 25px 70px rgba(0,0,0,0.2);
+}
+
+.survey-card h1 {
+  margin-top: 0;
+
+  font-size: 38px;
+}
+
+.survey-card p {
+  color: #91aabd;
+
+  line-height: 1.8;
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 900px) {
+  .navbar {
+    height: auto;
+    min-height: 70px;
+
+    padding: 14px 18px;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+  }
+
+  .nav-menu {
+    order: 3;
+
+    width: 100%;
+
+    margin: 0;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+
+    padding: 60px 22px;
+
+    gap: 45px;
+  }
+
+  .hero h1 {
+    font-size: 50px;
+  }
+
+  .pomodoro-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pomodoro-card {
+    grid-column: 1 / -1;
+  }
+
+  .quick-grid,
+  .achievement-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 12px 14px;
+  }
+
+  .logo {
+    font-size: 17px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .hero {
+    padding: 45px 16px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+
+    letter-spacing: -2px;
+  }
+
+  .description {
+    font-size: 15px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .buttons button {
+    width: 100%;
+  }
+
+  .pomodoro-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .pomodoro-card {
+    grid-column: auto;
+  }
+
+  .pomodoro-timer-wrapper {
+    width: 230px;
+    height: 230px;
+  }
+
+  .pomodoro-time {
+    font-size: 38px;
+  }
+
+  .quick-grid,
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-container {
+    padding: 45px 16px;
+  }
+
+  .survey-card {
+    padding: 28px 20px;
+  }
+}
