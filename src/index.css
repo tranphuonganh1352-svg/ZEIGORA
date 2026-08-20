@@ -1186,3 +1186,164 @@ a {
     animation-duration: 0.01ms !important;
   }
 }
+/* =========================================================
+   ZEIGORA NAVBAR — FINAL FIX
+   ========================================================= */
+
+.navbar {
+  min-width: 0;
+  gap: 24px;
+}
+
+.navbar > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 14px !important;
+  flex-shrink: 0;
+}
+
+/* Khu vực menu */
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-left: auto;
+}
+
+/* Nếu Navbar đang dùng button cho menu */
+.navbar nav button,
+.navbar > div button:not(.login-button) {
+  appearance: none;
+
+  border: 0;
+  border-radius: 9px;
+
+  padding: 9px 13px;
+
+  background: transparent;
+
+  color: var(--text-muted);
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.navbar nav button:hover,
+.navbar > div button:not(.login-button):hover {
+  background: rgba(159, 196, 218, 0.08);
+  color: var(--text);
+}
+
+/* =========================================================
+   DASHBOARD LAYOUT FIX
+   ========================================================= */
+
+main[style] {
+  width: min(1100px, calc(100% - 40px)) !important;
+
+  margin-left: auto !important;
+  margin-right: auto !important;
+
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  overflow: visible;
+}
+
+main[style] > h1 {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+
+  font-size: clamp(38px, 5vw, 54px) !important;
+}
+
+/* =========================================================
+   DASHBOARD STAT CARDS
+   ========================================================= */
+
+main[style] > div[style*="grid"] {
+  width: 100%;
+
+  display: grid !important;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr)) !important;
+
+  gap: 18px !important;
+}
+
+main[style] > div[style*="grid"] .hero-card {
+  width: 100%;
+  min-width: 0;
+}
+
+/* =========================================================
+   BETTER CARD
+   ========================================================= */
+
+.hero-card {
+  padding: 28px !important;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(19, 43, 58, 0.88),
+      rgba(11, 30, 43, 0.94)
+    );
+
+  border: 1px solid rgba(159, 196, 218, 0.13);
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.hero-card:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(159, 196, 218, 0.25);
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .navbar {
+    padding: 0 18px;
+
+    gap: 12px;
+  }
+
+  .navbar nav {
+    display: none;
+  }
+
+  main[style] {
+    width: min(100% - 32px, 700px) !important;
+  }
+
+  main[style] > div[style*="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    height: 68px;
+  }
+
+  .navbar > div:last-child > span {
+    display: none;
+  }
+
+  main[style] > h1 {
+    font-size: 36px !important;
+  }
+}
