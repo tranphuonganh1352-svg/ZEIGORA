@@ -280,7 +280,10 @@ const loadPomodoroStats = async () => {
             </div>
             <div>
 
-<Pomodoro user={user} />
+<Pomodoro
+  user={user}
+  onPomodoroComplete={loadPomodoroStats}
+/>
               <span style={{ color: "#829aaa" }}>
                 thời gian tập trung
               </span>

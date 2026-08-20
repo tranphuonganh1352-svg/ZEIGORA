@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 
-function Pomodoro({ user }) {
+function Pomodoro({ user, onPomodoroComplete }) {
   const WORK_TIME = 25 * 60;
 
   const [seconds, setSeconds] = useState(WORK_TIME);
@@ -48,6 +48,9 @@ function Pomodoro({ user }) {
         return;
       }
 
+      if (onPomodoroComplete) {
+  onPomodoroComplete();
+}
       alert("Hoàn thành một phiên Pomodoro! 🎉");
     };
 
