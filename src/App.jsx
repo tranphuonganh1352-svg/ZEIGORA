@@ -289,32 +289,21 @@ const loadPomodoroStats = async () => {
               </span>
             </div>
           </div>
-<div
-  className="hero-card"
-  style={{
-    marginTop: "20px",
-    textAlign: "center",
-  }}
->
-  <p>POMODORO HÔM NAY</p>
+<div className="pomodoro-wrapper">
+  <Pomodoro
+    user={user}
+    onPomodoroComplete={loadPomodoroStats}
+  />
 
-  <h2 style={{ fontSize: "35px" }}>
-    {pomodoroStats.sessions}
-  </h2>
+  <div className="pomodoro-stat">
+    <span>{pomodoroStats.sessions}</span>
+    <small>phiên hôm nay</small>
+  </div>
 
-  <span style={{ color: "#829aaa" }}>
-    phiên tập trung
-  </span>
-
-  <p
-    style={{
-      color: "#91b9d2",
-      marginTop: "12px",
-      fontSize: "18px",
-    }}
-  >
-    {pomodoroStats.minutes} phút tập trung
-  </p>
+  <div className="pomodoro-stat">
+    <span>{pomodoroStats.minutes}</span>
+    <small>phút tập trung</small>
+  </div>
 </div>
           <TodoList
   user={user}
