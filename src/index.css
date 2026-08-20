@@ -1860,3 +1860,6 @@ main[style] > * {
     width: calc(100% - 32px) !important;
   }
 }
+.logo {
+  color: #102536 !important;
+}
