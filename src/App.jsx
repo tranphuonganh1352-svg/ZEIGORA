@@ -100,11 +100,6 @@ useEffect(() => {
       subscription.unsubscribe();
     };
   }, []);
-useEffect(() => {
-  if (!user?.id) return;
-
-  loadPomodoroStats();
-}, [user]);
   // Hiển thị trong lúc kiểm tra đăng nhập
   if (loading) {
     return (
@@ -152,35 +147,8 @@ useEffect(() => {
     setUser(null);
     setPage("home");
   };
-const loadPomodoroStats = async () => {
-  if (!user?.id) return;
 
-  const startOfDay = new Date();
-  startOfDay.setHours(0, 0, 0, 0);
-
-  const { data, error } = await supabase
-    .from("pomodoro_sessions")
-    .select("duration")
-    .eq("user_id", user.id)
-    .gte("completed_at", startOfDay.toISOString());
-
-  if (error) {
-    console.error("Lỗi lấy Pomodoro:", error);
-    return;
-  }
-
-  const sessions = data?.length || 0;
-
-  const minutes = (data || []).reduce(
-    (total, session) => total + Number(session.duration || 0),
-    0
-  );
-
-  setPomodoroStats({
-    sessions,
-    minutes,
-  });
-};
+  
   // Dashboard
   if (page === "dashboard") {
     return (
@@ -278,16 +246,7 @@ const loadPomodoroStats = async () => {
                 đã hoàn thành
               </span>
             </div>
-            <div>
 
-<Pomodoro
-  user={user}
-  onPomodoroComplete={loadPomodoroStats}
-/>
-              <span style={{ color: "#829aaa" }}>
-                thời gian tập trung
-              </span>
-            </div>
           </div>
 <div className="pomodoro-wrapper">
   <Pomodoro
