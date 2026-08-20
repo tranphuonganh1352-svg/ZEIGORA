@@ -1347,3 +1347,440 @@ main[style] > div[style*="grid"] .hero-card {
     font-size: 36px !important;
   }
 }
+/* =========================================================
+   ZEIGORA — PREMIUM UI OVERRIDE
+   ========================================================= */
+
+:root {
+  --bg: #061019;
+  --bg-soft: #0a1722;
+  --surface: #0d1d2a;
+  --surface-2: #102533;
+
+  --border: rgba(183, 211, 226, 0.10);
+  --border-strong: rgba(183, 211, 226, 0.20);
+
+  --text: #f2f6f8;
+  --text-soft: #aebfca;
+  --text-muted: #6f8592;
+
+  --accent: #9dc8df;
+  --accent-bright: #c5e6f5;
+
+  --shadow:
+    0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+/* ---------- Global ---------- */
+
+body {
+  background:
+    radial-gradient(
+      900px 500px at 50% -150px,
+      rgba(91, 151, 184, 0.10),
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      #07141e 0%,
+      #061019 100%
+    );
+}
+
+.app {
+  background: transparent;
+}
+
+/* ---------- Navbar ---------- */
+
+.navbar {
+  height: 72px;
+
+  padding: 0 42px;
+
+  background: rgba(6, 16, 25, 0.72);
+
+  border-bottom: 1px solid rgba(183, 211, 226, 0.08);
+
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.logo {
+  letter-spacing: 0.14em;
+  font-size: 15px;
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f4f8fa,
+      #c9dce5
+    );
+
+  box-shadow:
+    0 5px 20px rgba(180, 220, 238, 0.10);
+}
+
+/* ---------- Buttons ---------- */
+
+.login-button {
+  padding: 9px 15px;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  border-color: rgba(183, 211, 226, 0.14);
+}
+
+.primary-button {
+  background:
+    linear-gradient(
+      135deg,
+      #e9f2f6,
+      #c8dce5
+    );
+
+  color: #08151e;
+
+  border: none;
+
+  box-shadow:
+    0 8px 25px rgba(154, 199, 220, 0.10);
+}
+
+.primary-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 32px rgba(154, 199, 220, 0.17);
+}
+
+.secondary-button {
+  background: rgba(255, 255, 255, 0.025);
+
+  border-color: rgba(183, 211, 226, 0.13);
+}
+
+.secondary-button:hover {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+/* ---------- Home ---------- */
+
+.hero {
+  max-width: 1160px;
+
+  padding-top: 90px;
+  padding-bottom: 90px;
+
+  gap: 90px;
+}
+
+.label {
+  background: rgba(157, 200, 223, 0.035);
+
+  border-color: rgba(157, 200, 223, 0.13);
+
+  color: #9fc9df;
+}
+
+.hero h1 {
+  font-weight: 680;
+
+  letter-spacing: -0.065em;
+}
+
+.hero h1 span {
+  background:
+    linear-gradient(
+      90deg,
+      #9fc9df,
+      #c8e1ec
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+.description {
+  color: #9db0bc;
+
+  line-height: 1.85;
+}
+
+/* ---------- Cards ---------- */
+
+.hero-card,
+.quick-card,
+.feature-card,
+.research-card,
+.achievement-card,
+.survey-card {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18, 38, 51, 0.72),
+      rgba(9, 25, 36, 0.82)
+    );
+
+  border-color: rgba(183, 211, 226, 0.09);
+
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.16);
+}
+
+.hero-card:hover,
+.quick-card:hover,
+.feature-card:hover,
+.research-card:hover,
+.achievement-card:hover,
+.survey-card:hover {
+  border-color: rgba(183, 211, 226, 0.17);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 46, 61, 0.78),
+      rgba(10, 28, 40, 0.88)
+    );
+}
+
+/* ---------- Dashboard ---------- */
+
+main[style] {
+  padding-top: 62px !important;
+  padding-bottom: 80px !important;
+}
+
+main[style] > h1 {
+  font-weight: 680 !important;
+
+  letter-spacing: -0.055em;
+
+  margin-bottom: 12px !important;
+}
+
+main[style] > .description {
+  color: var(--text-muted);
+}
+
+/* Dashboard cards */
+
+main[style] > div[style*="grid"] {
+  gap: 14px !important;
+}
+
+main[style] > div[style*="grid"] .hero-card {
+  min-height: 145px;
+
+  padding: 24px !important;
+}
+
+main[style] > div[style*="grid"] .hero-card h2 {
+  font-size: 34px !important;
+}
+
+/* ---------- Pomodoro ---------- */
+
+.pomodoro-wrapper {
+  margin-top: 20px;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    160px
+    160px;
+
+  gap: 12px;
+}
+
+.pomodoro-card {
+  min-height: 430px;
+
+  padding: 28px;
+
+  border-radius: 22px;
+
+  background:
+    radial-gradient(
+      500px 300px at 50% 50%,
+      rgba(116, 178, 207, 0.075),
+      transparent 65%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(17, 39, 53, 0.92),
+      rgba(8, 23, 34, 0.96)
+    );
+
+  border-color: rgba(170, 208, 224, 0.11);
+}
+
+.pomodoro-card.is-running {
+  border-color: rgba(157, 200, 223, 0.30);
+
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.30),
+    0 0 60px rgba(113, 177, 207, 0.055);
+}
+
+.pomodoro-header h3 {
+  font-size: 20px;
+}
+
+.pomodoro-eyebrow {
+  color: #9fc9df;
+}
+
+.pomodoro-session {
+  background: rgba(255, 255, 255, 0.025);
+
+  border-color: rgba(183, 211, 226, 0.10);
+}
+
+/* Timer */
+
+.pomodoro-timer-wrapper {
+  width: 275px;
+  height: 275px;
+
+  margin-top: 20px;
+}
+
+.progress-track {
+  stroke: rgba(255, 255, 255, 0.055);
+}
+
+.progress-value {
+  stroke: #a8d2e5;
+
+  filter:
+    drop-shadow(
+      0 0 5px rgba(157, 200, 223, 0.22)
+    );
+}
+
+.pomodoro-time {
+  font-size: 54px !important;
+
+  font-weight: 600;
+
+  letter-spacing: -0.07em;
+}
+
+.pomodoro-status {
+  color: #718895;
+}
+
+/* Dots */
+
+.pomodoro-dot {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.pomodoro-dot.active {
+  background: #a9d2e5;
+
+  box-shadow:
+    0 0 12px rgba(157, 200, 223, 0.20);
+}
+
+/* Pomodoro stats */
+
+.pomodoro-stat {
+  min-height: 145px;
+
+  padding: 22px;
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16, 37, 50, 0.78),
+      rgba(9, 25, 36, 0.88)
+    );
+
+  border-color: rgba(183, 211, 226, 0.08);
+}
+
+.pomodoro-stat span {
+  font-size: 34px;
+}
+
+.pomodoro-stat small {
+  color: #718793;
+}
+
+/* ---------- Todo ---------- */
+
+.todo-list {
+  margin-top: 20px;
+
+  padding: 24px;
+
+  border-radius: 20px;
+
+  background:
+    rgba(10, 27, 39, 0.65);
+
+  border-color: rgba(183, 211, 226, 0.08);
+}
+
+/* ---------- Progress ---------- */
+
+.progress-circle {
+  width: 170px;
+  height: 170px;
+
+  margin: 22px auto;
+}
+
+.progress-circle::before {
+  inset: 7px;
+
+  background: #0d1d2a;
+}
+
+.progress-circle-inner strong {
+  font-size: 34px;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 850px) {
+  .hero {
+    padding-top: 65px;
+  }
+
+  .pomodoro-wrapper {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0 16px;
+  }
+
+  .hero {
+    padding: 55px 18px;
+  }
+
+  .hero h1 {
+    font-size: 46px;
+  }
+
+  .pomodoro-card {
+    padding: 20px;
+  }
+}
