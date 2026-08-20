@@ -49,13 +49,14 @@ function Pomodoro({ user, onPomodoroComplete }) {
       }
 
       if (onPomodoroComplete) {
-  onPomodoroComplete();
-}
+        onPomodoroComplete();
+      }
+
       alert("Hoàn thành một phiên Pomodoro! 🎉");
     };
 
     saveSession();
-  }, [seconds, running, user]);
+  }, [seconds, running, user, onPomodoroComplete]);
 
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -68,33 +69,96 @@ function Pomodoro({ user, onPomodoroComplete }) {
     setSeconds(WORK_TIME);
   };
 
-  return (
-    <div className="pomodoro-card">
-      <p className="pomodoro-label">
-        POMODORO
-      </p>
+  // Progress của vòng tròn
+  const progress = seconds / WORK_TIME;
 
-      <div className="pomodoro-time">
-        {formatTime(minutes)}:{formatTime(remainingSeconds)}
+  const radius = 112;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference * (1 - progress);
+
+  return (
+    <div className={`pomodoro-card ${running ? "is-running" : ""}`}>
+      {/* Header */}
+      <div className="pomodoro-header">
+        <div>
+          <span className="pomodoro-eyebrow">POMODORO</span>
+          <h3>Tập trung</h3>
+        </div>
+
+        <span className="pomodoro-session">
+          PHIÊN 1 / 4
+        </span>
+      </div>
+
+      {/* Timer */}
+      <div className="pomodoro-timer-wrapper">
+        <svg
+          className="pomodoro-progress"
+          viewBox="0 0 260 260"
+        >
+          {/* Background circle */}
+          <circle
+            className="progress-track"
+            cx="130"
+            cy="130"
+            r={radius}
+          />
+
+          {/* Progress circle */}
+          <circle
+            className="progress-value"
+            cx="130"
+            cy="130"
+            r={radius}
+            style={{
+              strokeDasharray: circumference,
+              strokeDashoffset: offset,
+            }}
+          />
+        </svg>
+
+        <div className="pomodoro-timer-content">
+          <div className="pomodoro-time">
+            {formatTime(minutes)}:{formatTime(remainingSeconds)}
+          </div>
+
+          <span className="pomodoro-status">
+            {running ? "ĐANG TẬP TRUNG" : "SẴN SÀNG"}
+          </span>
+        </div>
+      </div>
+
+      {/* Session dots */}
+      <div className="pomodoro-dots">
+        <span className="pomodoro-dot active" />
+        <span className="pomodoro-dot" />
+        <span className="pomodoro-dot" />
+        <span className="pomodoro-dot" />
       </div>
 
       <p className="pomodoro-description">
         Tập trung 25 phút, nghỉ ngơi và tiếp tục.
       </p>
 
+      {/* Buttons */}
       <div className="pomodoro-buttons">
         <button
           className="primary-button"
           onClick={() => setRunning(!running)}
         >
+          <span className="button-icon">
+            {running ? "Ⅱ" : "▶"}
+          </span>
+
           {running ? "Tạm dừng" : "Bắt đầu"}
         </button>
 
         <button
-          className="secondary-button"
+          className="reset-button"
           onClick={resetTimer}
+          aria-label="Đặt lại Pomodoro"
         >
-          Đặt lại
+          ↻
         </button>
       </div>
     </div>
