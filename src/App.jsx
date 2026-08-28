@@ -7,6 +7,7 @@ import Overview from "./Pages/Overview";
 import Research from "./Pages/Research";
 import Achievements from "./Pages/Achievements";
 import Survey from "./Pages/Survey";
+import UpdatePassword from "./Pages/UpdatePassword";
 
 import Navbar from "./components/Navbar";
 import { supabase } from "./supabase";
@@ -203,6 +204,10 @@ function App() {
       </div>
     );
   }
+// Đặt lại mật khẩu
+if (window.location.pathname === "/update-password") {
+  return <UpdatePassword />;
+}
 
   // Đăng nhập
   if (page === "login") {

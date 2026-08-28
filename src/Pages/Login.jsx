@@ -6,6 +6,7 @@ function Login({ onRegister, onLoginSuccess }) {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,6 +50,29 @@ function Login({ onRegister, onLoginSuccess }) {
     }
   };
 
+const handleForgotPassword = async () => {
+  if (!email) {
+    setMessage("Vui lòng nhập email trước.");
+    return;
+  }
+
+  setLoading(true);
+  setMessage("");
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "https://zeigora.vercel.app/update-password",
+  });
+
+  setLoading(false);
+
+  if (error) {
+    setMessage("Không thể gửi email đặt lại mật khẩu.");
+    return;
+  }
+
+  setMessage("Đã gửi email đặt lại mật khẩu. Hãy kiểm tra hộp thư.");
+};
+
   return (
     <div className="login-page">
       <div className="login-box">
@@ -87,6 +111,13 @@ function Login({ onRegister, onLoginSuccess }) {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <button
+  type="button"
+  className="forgot-password"
+  onClick={handleForgotPassword}
+>
+  Quên mật khẩu?
+</button>
 
           <button
             type="submit"
