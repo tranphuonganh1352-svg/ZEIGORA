@@ -2831,3 +2831,17 @@ main[style] > div[style*="grid"] .hero-card {
   font-weight: 800;
   letter-spacing: 3px;
 }
+/* Chữ ZEIGORA trên navbar */
+.navbar .logo {
+  color: #f4f7fa !important;
+}
+
+.navbar .logo-icon {
+  color: #102536 !important;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
