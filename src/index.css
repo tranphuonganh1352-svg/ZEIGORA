@@ -1863,3 +1863,455 @@ main[style] > * {
 .logo {
   color: #102536 !important;
 }
+/* =========================================================
+   ZEIGORA — COMPACT RESPONSIVE
+   Desktop + Tablet + Mobile
+   ========================================================= */
+
+/* ---------- Desktop ---------- */
+
+main[style] {
+  width: min(1040px, calc(100% - 48px)) !important;
+  max-width: 1040px !important;
+  margin: 0 auto !important;
+  padding: 48px 0 60px !important;
+}
+
+/* Tiêu đề dashboard gọn hơn */
+main[style] > h1 {
+  font-size: clamp(34px, 4vw, 48px) !important;
+  line-height: 1.05;
+  margin-bottom: 8px !important;
+}
+
+/* Mô tả */
+main[style] > .description {
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 620px;
+}
+
+/* Card thống kê */
+main[style] > div[style*="grid"] {
+  gap: 14px !important;
+  margin-top: 28px !important;
+}
+
+main[style] > div[style*="grid"] .hero-card {
+  min-height: 125px;
+  padding: 22px !important;
+}
+
+/* ---------- Pomodoro ---------- */
+
+.pomodoro-wrapper {
+  margin-top: 18px;
+  grid-template-columns: minmax(0, 1fr) 145px 145px;
+  gap: 12px;
+}
+
+.pomodoro-card {
+  min-height: 400px;
+  padding: 24px;
+  border-radius: 20px;
+}
+
+.pomodoro-timer-wrapper {
+  width: 245px;
+  height: 245px;
+  margin: 16px auto 8px;
+}
+
+.pomodoro-time {
+  font-size: 48px !important;
+}
+
+.pomodoro-buttons {
+  margin-top: 14px;
+}
+
+.pomodoro-stat {
+  min-height: 125px;
+  padding: 18px;
+}
+
+.pomodoro-stat span {
+  font-size: 30px;
+}
+
+/* ---------- Todo ---------- */
+
+.todo-list {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 18px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .navbar {
+    height: 68px;
+    padding: 0 20px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 65px 24px;
+    gap: 45px;
+  }
+
+  .hero h1 {
+    font-size: clamp(42px, 7vw, 62px);
+  }
+
+  main[style] {
+    width: calc(100% - 40px) !important;
+    padding-top: 42px !important;
+  }
+
+  /* 2 card thống kê */
+  main[style] > div[style*="grid"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  /* Pomodoro xuống 1 hàng riêng */
+  .pomodoro-wrapper {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pomodoro-card {
+    grid-column: 1 / -1;
+  }
+
+  .pomodoro-stat {
+    min-height: 115px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- Navbar ---------- */
+
+  .navbar {
+    height: 62px;
+    padding: 0 14px;
+  }
+
+  .logo {
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: 0.11em;
+  }
+
+  .logo-icon {
+    width: 31px;
+    height: 31px;
+    border-radius: 9px;
+    font-size: 14px;
+  }
+
+  .login-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+
+  /* ---------- Home ---------- */
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    min-height: auto;
+
+    padding: 48px 18px 55px;
+
+    gap: 35px;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .label {
+    margin-bottom: 18px;
+    padding: 7px 11px;
+    font-size: 9px;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.055em;
+  }
+
+  .description {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .buttons {
+    margin-top: 24px;
+    gap: 9px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 13px;
+  }
+
+  .author {
+    margin-top: 30px;
+    font-size: 12px;
+  }
+
+
+  /* ---------- Hero card ---------- */
+
+  .hero-card {
+    padding: 22px !important;
+    border-radius: 18px;
+  }
+
+  .hero-card h2 {
+    font-size: 30px !important;
+  }
+
+  .circle {
+    width: 155px;
+    height: 155px;
+    margin: 22px auto;
+  }
+
+  .circle strong {
+    font-size: 38px;
+  }
+
+
+  /* ---------- Dashboard ---------- */
+
+  main[style] {
+    width: calc(100% - 28px) !important;
+    max-width: none !important;
+
+    padding: 34px 0 45px !important;
+  }
+
+  main[style] > h1 {
+    font-size: 34px !important;
+    line-height: 1.05;
+  }
+
+  main[style] > .description {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+
+  /* ---------- Dashboard stats ---------- */
+
+  main[style] > div[style*="grid"] {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+
+    margin-top: 22px !important;
+  }
+
+  main[style] > div[style*="grid"] .hero-card {
+    min-height: 105px;
+    padding: 19px !important;
+  }
+
+  main[style] > div[style*="grid"] .hero-card h2 {
+    font-size: 29px !important;
+  }
+
+
+  /* ---------- Pomodoro ---------- */
+
+  .pomodoro-wrapper {
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+
+    margin-top: 14px;
+  }
+
+  .pomodoro-card {
+    grid-column: auto;
+
+    min-height: 390px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+  }
+
+  .pomodoro-header {
+    gap: 10px;
+  }
+
+  .pomodoro-header h3 {
+    font-size: 17px;
+  }
+
+  .pomodoro-eyebrow {
+    font-size: 9px;
+  }
+
+  .pomodoro-session {
+    padding: 6px 8px;
+    font-size: 8px;
+  }
+
+
+  /* ---------- Timer ---------- */
+
+  .pomodoro-timer-wrapper {
+    width: 215px;
+    height: 215px;
+
+    margin: 15px auto 5px;
+  }
+
+  .pomodoro-time {
+    font-size: 42px !important;
+  }
+
+  .pomodoro-status {
+    margin-top: 8px;
+    font-size: 8px;
+  }
+
+  .pomodoro-dots {
+    margin: 5px 0 12px;
+  }
+
+  .pomodoro-description {
+    max-width: 270px;
+    margin: 0 auto;
+    font-size: 12px;
+  }
+
+
+  /* ---------- Pomodoro buttons ---------- */
+
+  .pomodoro-buttons {
+    margin-top: 15px;
+    gap: 7px;
+  }
+
+  .pomodoro-buttons .primary-button {
+    min-width: 125px;
+  }
+
+  .reset-button {
+    width: 42px;
+    height: 42px;
+  }
+
+
+  /* ---------- Pomodoro stats ---------- */
+
+  .pomodoro-stat {
+    min-height: 95px;
+
+    padding: 17px;
+
+    border-radius: 16px;
+  }
+
+  .pomodoro-stat span {
+    font-size: 28px;
+  }
+
+  .pomodoro-stat small {
+    margin-top: 6px;
+    font-size: 11px;
+  }
+
+
+  /* ---------- Todo ---------- */
+
+  .todo-list {
+    margin-top: 14px;
+    padding: 18px;
+    border-radius: 17px;
+  }
+
+
+  /* ---------- Quick access ---------- */
+
+  .quick-card,
+  .feature-card,
+  .research-card,
+  .achievement-card,
+  .survey-card {
+    border-radius: 17px;
+  }
+
+
+  /* ---------- Buttons ---------- */
+
+  .buttons {
+    width: 100%;
+  }
+
+  .buttons button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .hero {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .hero h1 {
+    font-size: 39px;
+  }
+
+  main[style] {
+    width: calc(100% - 24px) !important;
+  }
+
+  main[style] > h1 {
+    font-size: 30px !important;
+  }
+
+  .pomodoro-card {
+    padding: 17px;
+  }
+
+  .pomodoro-timer-wrapper {
+    width: 195px;
+    height: 195px;
+  }
+
+  .pomodoro-time {
+    font-size: 38px !important;
+  }
+}
