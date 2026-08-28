@@ -2857,3 +2857,271 @@ main[style] > div[style*="grid"] .hero-card {
 .navbar .logo-icon {
   color: #102536 !important;
 }
+/* =========================================
+   SURVEY PAGE
+   ========================================= */
+
+.survey-page {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 70px 0 100px;
+}
+
+.survey-page > .label {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  margin-bottom: 28px;
+
+  border: 1px solid rgba(145, 185, 210, 0.2);
+  border-radius: 999px;
+
+  color: #91b9d2;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.survey-page > h1 {
+  margin: 0 0 22px;
+
+  color: #f4f7fa;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.survey-page > .description {
+  max-width: 850px;
+  margin: 0 0 42px;
+
+  color: #9fb9ca;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+
+/* Card khảo sát */
+
+.survey-card {
+  position: relative;
+  overflow: hidden;
+
+  padding: 42px;
+  margin-top: 10px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16, 37, 54, 0.98),
+      rgba(8, 25, 36, 0.98)
+    );
+
+  border: 1px solid rgba(145, 185, 210, 0.16);
+  border-radius: 24px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+.survey-card::before {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 220px;
+
+  top: -120px;
+  right: -80px;
+
+  background: rgba(145, 185, 210, 0.06);
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.survey-card h2 {
+  position: relative;
+
+  margin: 0 0 16px;
+
+  color: #f4f7fa;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.survey-card > p {
+  position: relative;
+
+  max-width: 850px;
+  margin: 0 0 30px;
+
+  color: #a9c0ce;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+
+/* Thông tin khảo sát */
+
+.survey-info {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+
+  margin: 28px 0;
+}
+
+.survey-info-item {
+  padding: 18px 20px;
+
+  background: rgba(7, 21, 33, 0.55);
+  border: 1px solid rgba(145, 185, 210, 0.1);
+  border-radius: 14px;
+}
+
+.survey-info-item span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #78909f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.survey-info-item strong {
+  color: #dcebf3;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+/* Nút khảo sát */
+
+.survey-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 48px;
+  padding: 0 24px;
+
+  border: 0;
+  border-radius: 12px;
+
+  background: #c8dfea;
+  color: #102536;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.survey-button:hover {
+  background: #dcebf3;
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(145, 185, 210, 0.16);
+}
+
+.survey-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+   ========================================= */
+
+@media (max-width: 768px) {
+  .survey-page {
+    width: min(100% - 28px, 680px);
+    padding: 45px 0 70px;
+  }
+
+  .survey-page > h1 {
+    font-size: 42px;
+  }
+
+  .survey-page > .description {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .survey-card {
+    padding: 28px;
+    border-radius: 20px;
+  }
+
+  .survey-card h2 {
+    font-size: 26px;
+  }
+
+  .survey-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================
+   RESPONSIVE - PHONE
+   ========================================= */
+
+@media (max-width: 480px) {
+  .survey-page {
+    width: calc(100% - 24px);
+    padding: 32px 0 55px;
+  }
+
+  .survey-page > .label {
+    margin-bottom: 20px;
+    padding: 8px 13px;
+    font-size: 11px;
+  }
+
+  .survey-page > h1 {
+    margin-bottom: 16px;
+    font-size: 36px;
+    line-height: 1.08;
+  }
+
+  .survey-page > .description {
+    margin-bottom: 28px;
+    font-size: 15px;
+  }
+
+  .survey-card {
+    padding: 24px 20px;
+    border-radius: 18px;
+  }
+
+  .survey-card h2 {
+    font-size: 23px;
+  }
+
+  .survey-card > p {
+    font-size: 15px;
+  }
+
+  .survey-info {
+    gap: 10px;
+    margin: 22px 0;
+  }
+
+  .survey-info-item {
+    padding: 15px;
+  }
+
+  .survey-button {
+    width: 100%;
+  }
+}
