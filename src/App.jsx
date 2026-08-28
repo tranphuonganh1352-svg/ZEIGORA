@@ -29,7 +29,7 @@ function App() {
 
   const [focusStreak, setFocusStreak] = useState(0);
   
-  const loadFocusStreak = async () => {
+ const loadFocusStreak = async () => {
   if (!user?.id) return;
 
   const { data, error } = await supabase
@@ -43,20 +43,20 @@ function App() {
     return;
   }
 
-  // Lấy danh sách những ngày đã hoàn thành Pomodoro
   const completedDays = new Set(
-    (data || []).map((session) => {
-      const date = new Date(session.completed_at);
+    (data || [])
+      .filter((session) => session.completed_at)
+      .map((session) => {
+        const date = new Date(session.completed_at);
 
-      return `${date.getFullYear()}-${String(
-        date.getMonth() + 1
-      ).padStart(2, "0")}-${String(
-        date.getDate()
-      ).padStart(2, "0")}`;
-    })
+        return `${date.getFullYear()}-${String(
+          date.getMonth() + 1
+        ).padStart(2, "0")}-${String(
+          date.getDate()
+        ).padStart(2, "0")}`;
+      })
   );
 
-  // Hàm tạo mã ngày
   const getDateKey = (date) => {
     return `${date.getFullYear()}-${String(
       date.getMonth() + 1
@@ -66,27 +66,25 @@ function App() {
   };
 
   const today = new Date();
-
-  // Bắt đầu kiểm tra từ hôm nay
-  let checkDate = new Date(today);
-
-  /*
-    Nếu hôm nay CHƯA hoàn thành Pomodoro
-    thì lùi về HÔM QUA để giữ chuỗi.
-  */
-  if (!completedDays.has(getDateKey(checkDate))) {
-    checkDate.setDate(checkDate.getDate() - 1);
-  }
+  const todayKey = getDateKey(today);
 
   let streak = 0;
 
-  // Đếm những ngày liên tiếp
-  while (completedDays.has(getDateKey(checkDate))) {
-    streak++;
+  // Hôm nay chưa làm → tính từ hôm qua
+  let daysAgo = completedDays.has(todayKey) ? 0 : 1;
 
-    checkDate.setDate(
-      checkDate.getDate() - 1
-    );
+  while (true) {
+    const checkDate = new Date(today);
+    checkDate.setDate(today.getDate() - daysAgo);
+
+    const dateKey = getDateKey(checkDate);
+
+    if (!completedDays.has(dateKey)) {
+      break;
+    }
+
+    streak++;
+    daysAgo++;
   }
 
   setFocusStreak(streak);
