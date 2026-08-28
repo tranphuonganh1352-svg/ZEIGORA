@@ -43,34 +43,50 @@ function App() {
     return;
   }
 
-  // Lấy các ngày đã hoàn thành Pomodoro
+  // Lấy danh sách những ngày đã hoàn thành Pomodoro
   const completedDays = new Set(
     (data || []).map((session) => {
       const date = new Date(session.completed_at);
 
       return `${date.getFullYear()}-${String(
         date.getMonth() + 1
-      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      ).padStart(2, "0")}-${String(
+        date.getDate()
+      ).padStart(2, "0")}`;
     })
   );
 
-  let streak = 0;
+  // Hàm tạo mã ngày
+  const getDateKey = (date) => {
+    return `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${String(
+      date.getDate()
+    ).padStart(2, "0")}`;
+  };
+
   const today = new Date();
 
-  // Kiểm tra liên tục từ hôm nay trở về trước
-  while (true) {
-    const checkDate = new Date(today);
-    checkDate.setDate(today.getDate() - streak);
+  // Bắt đầu kiểm tra từ hôm nay
+  let checkDate = new Date(today);
 
-    const dateKey = `${checkDate.getFullYear()}-${String(
-      checkDate.getMonth() + 1
-    ).padStart(2, "0")}-${String(checkDate.getDate()).padStart(2, "0")}`;
+  /*
+    Nếu hôm nay CHƯA hoàn thành Pomodoro
+    thì lùi về HÔM QUA để giữ chuỗi.
+  */
+  if (!completedDays.has(getDateKey(checkDate))) {
+    checkDate.setDate(checkDate.getDate() - 1);
+  }
 
-    if (!completedDays.has(dateKey)) {
-      break;
-    }
+  let streak = 0;
 
+  // Đếm những ngày liên tiếp
+  while (completedDays.has(getDateKey(checkDate))) {
     streak++;
+
+    checkDate.setDate(
+      checkDate.getDate() - 1
+    );
   }
 
   setFocusStreak(streak);
@@ -313,6 +329,7 @@ function App() {
   setTaskStats={setTaskStats}
   pomodoroStats={pomodoroStats}
   loadPomodoroStats={loadPomodoroStats}
+  loadFocusStreak={loadFocusStreak}
   focusStreak={focusStreak}
   onNavigate={setPage}
 />

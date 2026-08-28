@@ -7,6 +7,7 @@ function Overview({
   setTaskStats,
   pomodoroStats,
   loadPomodoroStats,
+  loadFocusStreak,
   focusStreak,
   onNavigate,
 }) {
@@ -92,10 +93,13 @@ function Overview({
       </section>
 
       <section className="pomodoro-section">
-        <Pomodoro
-          user={user}
-          onPomodoroComplete={loadPomodoroStats}
-        />
+       <Pomodoro
+  user={user}
+  onPomodoroComplete={() => {
+    loadPomodoroStats();
+    loadFocusStreak();
+  }}
+/>
 
         <div className="pomodoro-stat">
           <span>{pomodoroStats.minutes}</span>
