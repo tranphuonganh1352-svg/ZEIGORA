@@ -3125,3 +3125,225 @@ main[style] > div[style*="grid"] .hero-card {
     width: 100%;
   }
 }
+/* =========================================
+   ACHIEVEMENTS
+   ========================================= */
+
+.achievements-page {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 70px 0 100px;
+}
+
+.achievements-page > .label {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 9px 16px;
+  margin-bottom: 28px;
+
+  border: 1px solid rgba(145, 185, 210, 0.2);
+  border-radius: 999px;
+
+  color: #91b9d2;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.achievements-page > h1 {
+  margin: 0 0 20px;
+
+  color: #f4f7fa;
+  font-size: clamp(42px, 5vw, 64px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.achievements-page > .description {
+  max-width: 800px;
+  margin: 0 0 42px;
+
+  color: #9fb9ca;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+
+/* 4 thẻ thành tựu */
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  margin-bottom: 34px;
+}
+
+.achievement-card {
+  min-height: 190px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 24px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(16, 37, 54, 0.98),
+    rgba(8, 25, 36, 0.98)
+  );
+
+  border: 1px solid rgba(145, 185, 210, 0.14);
+  border-radius: 20px;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(145, 185, 210, 0.3);
+}
+
+.achievement-icon {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(145, 185, 210, 0.1);
+  border: 1px solid rgba(145, 185, 210, 0.12);
+  border-radius: 14px;
+
+  font-size: 22px;
+}
+
+.achievement-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.achievement-content strong {
+  color: #f4f7fa;
+  font-size: 34px;
+  line-height: 1;
+}
+
+.achievement-content small {
+  color: #829aaa;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+
+/* Card thông điệp */
+
+.achievement-message {
+  padding: 38px 40px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(16, 37, 54, 0.98),
+    rgba(8, 25, 36, 0.98)
+  );
+
+  border: 1px solid rgba(145, 185, 210, 0.14);
+  border-radius: 22px;
+}
+
+.achievement-message .label {
+  margin: 0 0 24px;
+}
+
+.achievement-message h2 {
+  max-width: 760px;
+
+  margin: 0 0 16px;
+
+  color: #f4f7fa;
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.achievement-message > p:last-child {
+  max-width: 800px;
+
+  margin: 0;
+
+  color: #9fb9ca;
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+  .achievement-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* =========================================
+   PHONE
+   ========================================= */
+
+@media (max-width: 600px) {
+  .achievements-page {
+    width: calc(100% - 28px);
+    padding: 42px 0 65px;
+  }
+
+  .achievements-page > .label {
+    margin-bottom: 20px;
+    padding: 8px 13px;
+    font-size: 11px;
+  }
+
+  .achievements-page > h1 {
+    font-size: 38px;
+    line-height: 1.08;
+  }
+
+  .achievements-page > .description {
+    margin-bottom: 28px;
+    font-size: 15px;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .achievement-card {
+    min-height: 145px;
+    padding: 20px;
+  }
+
+  .achievement-content strong {
+    font-size: 30px;
+  }
+
+  .achievement-message {
+    padding: 28px 22px;
+    border-radius: 18px;
+  }
+
+  .achievement-message h2 {
+    font-size: 25px;
+  }
+
+  .achievement-message > p:last-child {
+    font-size: 15px;
+  }
+}
