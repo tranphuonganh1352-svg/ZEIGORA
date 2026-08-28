@@ -6,8 +6,8 @@ function Login({ onRegister, onLoginSuccess }) {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-const [showForgotPassword, setShowForgotPassword] = useState(false);
 
+  // ĐĂNG NHẬP
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -20,15 +20,17 @@ const [showForgotPassword, setShowForgotPassword] = useState(false);
     setMessage("");
 
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+      email,
+      password,
     });
 
     setLoading(false);
 
     if (error) {
       if (error.message.includes("Email not confirmed")) {
-        setMessage("Email chưa được xác nhận. Hãy kiểm tra hộp thư của bạn.");
+        setMessage(
+          "Email chưa được xác nhận. Hãy kiểm tra hộp thư của bạn."
+        );
       } else {
         setMessage("Email hoặc mật khẩu không chính xác.");
       }
@@ -50,46 +52,53 @@ const [showForgotPassword, setShowForgotPassword] = useState(false);
     }
   };
 
-const handleForgotPassword = async () => {
-  if (!email) {
-    setMessage("Vui lòng nhập email trước.");
-    return;
-  }
+  // QUÊN MẬT KHẨU
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setMessage("Vui lòng nhập email trước khi đặt lại mật khẩu.");
+      return;
+    }
 
-  setLoading(true);
-  setMessage("");
+    setLoading(true);
+    setMessage("");
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "https://zeigora.vercel.app/update-password",
-  });
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/update-password`,
+    });
 
-  setLoading(false);
+    setLoading(false);
 
-  if (error) {
-    setMessage("Không thể gửi email đặt lại mật khẩu.");
-    return;
-  }
+    if (error) {
+      console.error("Lỗi gửi email reset:", error);
+      setMessage("Không thể gửi email đặt lại mật khẩu. Vui lòng thử lại.");
+      return;
+    }
 
-  setMessage("Đã gửi email đặt lại mật khẩu. Hãy kiểm tra hộp thư.");
-};
+    setMessage(
+      "Email đặt lại mật khẩu đã được gửi. Hãy kiểm tra hộp thư của bạn."
+    );
+  };
 
   return (
     <div className="login-page">
       <div className="login-box">
 
-       <div className="logo login-logo">
-  <span className="logo-icon">Z</span>
-  <span className="login-logo-text">ZEIGORA</span>
-</div>
+        {/* LOGO */}
+        <div className="login-logo">
+          <span className="logo-icon">Z</span>
+          <span>ZEIGORA</span>
+        </div>
 
         <h1>Chào mừng trở lại</h1>
 
         <p className="login-description">
-          Đăng nhập để tiếp tục theo dõi mục tiêu và tiến trình học tập của bạn.
+          Đăng nhập để tiếp tục theo dõi mục tiêu và tiến trình học tập
+          của bạn.
         </p>
 
         <form onSubmit={handleLogin}>
 
+          {/* EMAIL */}
           <div className="input-group">
             <label>Email</label>
 
@@ -101,6 +110,7 @@ const handleForgotPassword = async () => {
             />
           </div>
 
+          {/* MẬT KHẨU */}
           <div className="input-group">
             <label>Mật khẩu</label>
 
@@ -111,37 +121,45 @@ const handleForgotPassword = async () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button
-  type="button"
-  className="forgot-password"
-  onClick={handleForgotPassword}
->
-  Quên mật khẩu?
-</button>
 
+          {/* QUÊN MẬT KHẨU */}
+          <button
+            type="button"
+            className="forgot-password"
+            onClick={handleForgotPassword}
+            disabled={loading}
+          >
+            Quên mật khẩu?
+          </button>
+
+          {/* ĐĂNG NHẬP */}
           <button
             type="submit"
             className="login-submit"
             disabled={loading}
           >
-            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+            {loading ? "Đang xử lý..." : "Đăng nhập"}
           </button>
 
         </form>
 
+        {/* MESSAGE */}
         {message && (
           <p
+            className="login-message"
             style={{
               marginTop: "15px",
               textAlign: "center",
               color: "#b7d5e6",
               fontSize: "13px",
+              lineHeight: "1.5",
             }}
           >
             {message}
           </p>
         )}
 
+        {/* ĐĂNG KÝ */}
         <p className="register-text">
           Chưa có tài khoản?{" "}
 

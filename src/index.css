@@ -4472,3 +4472,24 @@ main[style] > div[style*="grid"] .hero-card {
   background: #e7f2f7;
   transform: translateY(-2px);
 }
+.forgot-password {
+  display: block;
+  margin: 10px 0 20px auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #91b9d2;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.forgot-password:hover {
+  color: #dcecf5;
+  text-decoration: underline;
+}
+
+.forgot-password:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
