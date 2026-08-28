@@ -2520,9 +2520,11 @@ main[style] > div[style*="grid"] .hero-card {
     width: min(100% - 36px, 700px);
   }
 
+@media (max-width: 700px) {
   .overview-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
+}
 
   .overview-grid .hero-card:last-child {
     grid-column: 1 / -1;
@@ -2604,5 +2606,24 @@ main[style] > div[style*="grid"] .hero-card {
 
   .page-container > .todo-list {
     margin-top: 40px;
+  }
+}
+/* DASHBOARD - DESKTOP */
+.overview-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 16px;
+  width: 100%;
+}
+
+.overview-grid .hero-card {
+  width: 100%;
+  min-width: 0;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  .overview-grid {
+    grid-template-columns: 1fr !important;
   }
 }
