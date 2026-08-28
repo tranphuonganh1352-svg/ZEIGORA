@@ -47,12 +47,15 @@ function Overview({
         </div>
       </section>
 
-      <div className="hero-card streak-card">
+     <div className="hero-card focus-streak-card">
   <p>CHUỖI TẬP TRUNG</p>
-  <h2>🔥 {focusStreak}</h2>
-  <span>
-    {focusStreak === 1 ? "ngày liên tiếp" : "ngày liên tiếp"}
-  </span>
+
+  <div className="streak-number">
+    <span>🔥</span>
+    <strong>{focusStreak}</strong>
+  </div>
+
+  <span>ngày liên tiếp</span>
 </div>
 
       <section className="quick-access">
