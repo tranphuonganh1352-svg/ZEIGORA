@@ -2845,3 +2845,15 @@ main[style] > div[style*="grid"] .hero-card {
   align-items: center;
   gap: 12px;
 }
+/* Logo trên navbar */
+.navbar .logo {
+  background: transparent !important;
+  color: #f4f7fa !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.navbar .logo-icon {
+  color: #102536 !important;
+}
