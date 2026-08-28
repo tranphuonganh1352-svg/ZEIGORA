@@ -3,48 +3,40 @@
    ========================================================= */
 
 :root {
-  --bg: #071521;
-  --bg-soft: #0b1c2a;
-  --surface: #102536;
-  --surface-hover: #142c3e;
+  --bg: #06131f;
+  --bg-soft: #0a1c2b;
 
-  --border: rgba(164, 198, 218, 0.14);
-  --border-strong: rgba(164, 198, 218, 0.24);
+  --surface: rgba(14, 36, 52, 0.82);
+  --surface-hover: rgba(20, 48, 68, 0.9);
 
-  --text: #f4f7fa;
-  --text-soft: #b9cbd7;
-  --text-muted: #78909f;
+  --border: rgba(190, 220, 238, 0.13);
+  --border-strong: rgba(190, 220, 238, 0.25);
 
-  --accent: #9fc4da;
-  --accent-strong: #c1dbea;
+  --accent: #9fc9e2;
+  --accent-strong: #d9edf8;
 
-  --success: #8bc6b0;
+  --text: #f5f9fc;
+  --text-soft: #b8ccda;
+  --text-muted: #7893a5;
+
+  --success: #9bd2bd;
   --danger: #e59a9a;
 
-  --shadow:
-    0 20px 60px rgba(0, 0, 0, 0.22);
-
   --shadow-soft:
-    0 10px 35px rgba(0, 0, 0, 0.16);
+    0 18px 50px rgba(0, 0, 0, 0.22);
 
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --radius-sm: 12px;
+  --shadow-large:
+    0 30px 80px rgba(0, 0, 0, 0.32);
+
+  --radius: 22px;
 
   font-family:
     Inter,
-    ui-sans-serif,
+    "Segoe UI",
     system-ui,
     -apple-system,
     BlinkMacSystemFont,
-    "Segoe UI",
     sans-serif;
-
-  color: var(--text);
-  background: var(--bg);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
 }
 
 * {
@@ -52,7 +44,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  background: #06131f;
 }
 
 body {
@@ -60,23 +52,27 @@ body {
   min-width: 320px;
   min-height: 100vh;
 
-  background:
-    radial-gradient(
-      circle at 80% 5%,
-      rgba(95, 145, 175, 0.09),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 10% 80%,
-      rgba(78, 124, 150, 0.06),
-      transparent 28%
-    ),
-    var(--bg);
-
   color: var(--text);
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(91, 155, 190, 0.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(116, 174, 207, 0.08),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #06131f 0%,
+      #081a29 48%,
+      #06121d 100%
+    );
+
+  background-attachment: fixed;
 }
 
 button,
