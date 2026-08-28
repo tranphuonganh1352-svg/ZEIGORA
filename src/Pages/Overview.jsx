@@ -7,6 +7,7 @@ function Overview({
   setTaskStats,
   pomodoroStats,
   loadPomodoroStats,
+  focusStreak,
   onNavigate,
 }) {
   return (

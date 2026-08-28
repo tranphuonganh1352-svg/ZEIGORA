@@ -27,6 +27,55 @@ function App() {
     minutes: 0,
   });
 
+  const [focusStreak, setFocusStreak] = useState(0);
+  
+  const loadFocusStreak = async () => {
+  if (!user?.id) return;
+
+  const { data, error } = await supabase
+    .from("pomodoro_sessions")
+    .select("completed_at")
+    .eq("user_id", user.id)
+    .order("completed_at", { ascending: false });
+
+  if (error) {
+    console.error("Lỗi lấy chuỗi tập trung:", error);
+    return;
+  }
+
+  // Lấy các ngày đã hoàn thành Pomodoro
+  const completedDays = new Set(
+    (data || []).map((session) => {
+      const date = new Date(session.completed_at);
+
+      return `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    })
+  );
+
+  let streak = 0;
+  const today = new Date();
+
+  // Kiểm tra liên tục từ hôm nay trở về trước
+  while (true) {
+    const checkDate = new Date(today);
+    checkDate.setDate(today.getDate() - streak);
+
+    const dateKey = `${checkDate.getFullYear()}-${String(
+      checkDate.getMonth() + 1
+    ).padStart(2, "0")}-${String(checkDate.getDate()).padStart(2, "0")}`;
+
+    if (!completedDays.has(dateKey)) {
+      break;
+    }
+
+    streak++;
+  }
+
+  setFocusStreak(streak);
+};
+
   const loadPomodoroStats = async () => {
     if (!user?.id) return;
 
@@ -58,11 +107,12 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    if (!user?.id) return;
+ useEffect(() => {
+  if (!user?.id) return;
 
-    loadPomodoroStats();
-  }, [user]);
+  loadPomodoroStats();
+  loadFocusStreak();
+}, [user]);
 
   // Kiểm tra trạng thái đăng nhập
   useEffect(() => {
@@ -257,14 +307,15 @@ function App() {
       />
 
       {page === "overview" && (
-        <Overview
-          user={user}
-          taskStats={taskStats}
-          setTaskStats={setTaskStats}
-          pomodoroStats={pomodoroStats}
-          loadPomodoroStats={loadPomodoroStats}
-          onNavigate={setPage}
-        />
+<Overview
+  user={user}
+  taskStats={taskStats}
+  setTaskStats={setTaskStats}
+  pomodoroStats={pomodoroStats}
+  loadPomodoroStats={loadPomodoroStats}
+  focusStreak={focusStreak}
+  onNavigate={setPage}
+/>
       )}
 
       {page === "research" && <Research />}
