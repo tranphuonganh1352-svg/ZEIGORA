@@ -53,10 +53,10 @@ function Login({ onRegister, onLoginSuccess }) {
     <div className="login-page">
       <div className="login-box">
 
-        <div className="logo">
-          <span className="logo-icon">Z</span>
-          ZEIGORA
-        </div>
+       <div className="logo login-logo">
+  <span className="logo-icon">Z</span>
+  <span className="login-logo-text">ZEIGORA</span>
+</div>
 
         <h1>Chào mừng trở lại</h1>
 

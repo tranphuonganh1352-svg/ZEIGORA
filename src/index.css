@@ -2800,3 +2800,34 @@ main[style] > div[style*="grid"] .hero-card {
     margin-bottom: 26px;
   }
 }
+/* Logo trong trang đăng nhập */
+.login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 32px;
+  color: #f4f7fa !important;
+}
+
+.login-logo .logo-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  background: #dceaf2;
+  color: #102536;
+
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.login-logo-text {
+  color: #f4f7fa !important;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
