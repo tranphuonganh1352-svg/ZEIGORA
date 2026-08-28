@@ -93,8 +93,25 @@ function Overview({
             className="quick-card"
             onClick={() => onNavigate("survey")}
           >
-            <span className="quick-icon">□</span>
-            <h3>Khảo sát</h3>
+<span className="quick-icon survey-icon">
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="4" y="3" width="16" height="18" rx="3" />
+    <path d="M8 8h8" />
+    <path d="M8 12h3" />
+    <path d="m14 13 1.5 1.5L18 12" />
+    <path d="M8 16h3" />
+  </svg>
+</span>
+           <h3>Khảo sát</h3>
             <p>
               Đóng góp ý kiến cho nghiên cứu của ZEIGORA.
             </p>

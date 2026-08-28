@@ -3859,3 +3859,21 @@ main[style] > div[style*="grid"] .hero-card {
   font-size: 12px;
   line-height: 1.6;
 }
+.survey-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: rgba(145, 185, 210, 0.12);
+  border: 1px solid rgba(145, 185, 210, 0.18);
+
+  color: #b9d9e9;
+  font-size: 22px;
+  font-weight: 700;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
