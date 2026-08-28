@@ -4388,3 +4388,87 @@ main[style] > div[style*="grid"] .hero-card {
   }
 
 }
+/* =========================
+   SURVEY CARD
+========================= */
+
+.survey-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Biểu tượng góc trên */
+
+.survey-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(145, 185, 210, 0.12);
+  border: 1px solid rgba(145, 185, 210, 0.18);
+
+  margin-bottom: 22px;
+}
+
+.survey-icon span {
+  font-size: 25px;
+  font-weight: 600;
+  color: #b9d8e8;
+}
+
+/* Tiêu đề */
+
+.survey-card h2 {
+  margin-bottom: 18px;
+}
+
+/* Nội dung */
+
+.survey-card > p {
+  max-width: 900px;
+  line-height: 1.8;
+}
+
+/* Thông tin */
+
+.survey-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.survey-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.survey-info strong {
+  color: #f4f7fa;
+}
+
+.survey-info span {
+  color: #b9cbd7;
+}
+
+/* Nút khảo sát */
+
+.survey-button {
+  color: #071521 !important;
+  font-weight: 700;
+
+  background: #d7e7ef;
+}
+
+.survey-button:hover {
+  color: #071521 !important;
+  background: #e7f2f7;
+  transform: translateY(-2px);
+}

@@ -13,8 +13,9 @@ function Survey() {
       </p>
 
       <section className="survey-card">
-        <span className="survey-icon">□</span>
-
+<div className="survey-icon">
+  <span>✦</span>
+</div>
         <h2>Khảo sát trải nghiệm học tập</h2>
 
         <p>
@@ -25,12 +26,12 @@ function Survey() {
 
         <div className="survey-info">
           <div>
-            <strong>Thời gian</strong>
+            <strong>Thời gian:</strong>
             <span>Khoảng 3–5 phút</span>
           </div>
 
           <div>
-            <strong>Mục đích</strong>
+            <strong>Mục đích:</strong>
             <span>Phục vụ nghiên cứu khoa học</span>
           </div>
         </div>
