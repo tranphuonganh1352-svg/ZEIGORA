@@ -3877,3 +3877,514 @@ main[style] > div[style*="grid"] .hero-card {
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
+/* =========================================
+   ACHIEVEMENTS GAME
+   ========================================= */
+
+.achievements-page {
+  padding-bottom: 100px;
+}
+
+.achievement-hero {
+  margin-bottom: 40px;
+}
+
+.achievement-hero h1 {
+  margin-top: 14px;
+}
+
+.achievement-hero h1 span {
+  color: #9fc4da;
+}
+
+/* LEVEL */
+
+.level-card {
+  position: relative;
+
+  padding: 32px;
+
+  margin-bottom: 22px;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(18, 47, 66, 0.96),
+      rgba(8, 27, 40, 0.96)
+    );
+
+  border: 1px solid rgba(159, 196, 218, 0.18);
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.2);
+}
+
+.level-top {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.level-badge {
+  width: 82px;
+  height: 82px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #dcecf4,
+      #91b9d2
+    );
+
+  color: #071521;
+
+  box-shadow:
+    0 12px 30px rgba(145, 185, 210, 0.18);
+}
+
+.level-badge span {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.level-badge strong {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.level-info {
+  flex: 1;
+}
+
+.level-label {
+  margin: 0;
+
+  color: #78909f;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.level-info h2 {
+  margin: 6px 0;
+
+  font-size: 25px;
+}
+
+.level-info p:last-child {
+  margin: 0;
+
+  color: #91b9d2;
+  font-size: 14px;
+}
+
+.total-xp {
+  text-align: right;
+}
+
+.total-xp strong {
+  display: block;
+
+  color: #c1dbea;
+
+  font-size: 28px;
+}
+
+.total-xp span {
+  color: #78909f;
+  font-size: 12px;
+}
+
+/* XP BAR */
+
+.xp-bar {
+  height: 10px;
+
+  margin-top: 28px;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.xp-bar-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #91b9d2,
+      #c1dbea
+    );
+
+  transition: width 0.8s ease;
+}
+
+.xp-next {
+  margin: 12px 0 0;
+
+  color: #78909f;
+
+  font-size: 13px;
+}
+
+.xp-next strong {
+  color: #b9d5e5;
+}
+
+/* GAME STATS */
+
+.game-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 50px;
+}
+
+.game-stat-card {
+  padding: 22px;
+
+  border-radius: 20px;
+
+  background: rgba(14, 37, 52, 0.75);
+
+  border: 1px solid var(--border);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.game-stat-card:hover {
+  transform: translateY(-4px);
+
+  background: rgba(18, 46, 63, 0.9);
+
+  border-color: rgba(159, 196, 218, 0.28);
+}
+
+.game-stat-card span {
+  display: block;
+
+  margin-bottom: 12px;
+
+  font-size: 24px;
+}
+
+.game-stat-card strong {
+  display: block;
+
+  font-size: 28px;
+
+  color: #f4f7fa;
+}
+
+.game-stat-card small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #78909f;
+
+  font-size: 12px;
+}
+
+/* BADGES */
+
+.badges-section {
+  margin-top: 20px;
+}
+
+.badges-heading {
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+}
+
+.badges-heading h2 {
+  margin: 6px 0 0;
+
+  font-size: 30px;
+}
+
+.badge-count {
+  color: #c1dbea;
+
+  font-size: 18px;
+
+  text-align: right;
+}
+
+.badge-count span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #78909f;
+
+  font-size: 12px;
+}
+
+/* BADGE GRID */
+
+.badges-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 14px;
+}
+
+.badge-card {
+  display: flex;
+
+  gap: 18px;
+
+  padding: 22px;
+
+  border-radius: 20px;
+
+  border: 1px solid var(--border);
+
+  background:
+    rgba(14, 37, 52, 0.72);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.badge-card.unlocked:hover {
+  transform: translateY(-4px);
+
+  border-color:
+    rgba(159, 196, 218, 0.35);
+}
+
+.badge-card.locked {
+  opacity: 0.52;
+}
+
+.badge-icon {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 17px;
+
+  font-size: 27px;
+
+  background:
+    rgba(159, 196, 218, 0.10);
+
+  border: 1px solid
+    rgba(159, 196, 218, 0.14);
+}
+
+.badge-card.unlocked .badge-icon {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(159, 196, 218, 0.20),
+      rgba(145, 185, 210, 0.07)
+    );
+
+  box-shadow:
+    0 8px 25px rgba(145, 185, 210, 0.08);
+}
+
+.badge-content {
+  min-width: 0;
+}
+
+.badge-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+}
+
+.badge-title h3 {
+  margin: 0;
+
+  font-size: 17px;
+}
+
+.badge-content p {
+  margin: 7px 0;
+
+  color: #91aebe;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+.badge-content small {
+  color: #6f8999;
+
+  font-size: 11px;
+}
+
+.unlocked-tag {
+  padding: 4px 7px;
+
+  border-radius: 6px;
+
+  background:
+    rgba(139, 198, 176, 0.10);
+
+  color: #8bc6b0;
+
+  font-size: 8px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+/* MESSAGE */
+
+.game-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+  margin-top: 40px;
+
+  padding: 28px;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(145, 185, 210, 0.10),
+      rgba(14, 37, 52, 0.65)
+    );
+
+  border: 1px solid
+    rgba(159, 196, 218, 0.16);
+}
+
+.game-message-icon {
+  width: 58px;
+  height: 58px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 18px;
+
+  background: rgba(159, 196, 218, 0.12);
+
+  color: #c1dbea;
+
+  font-size: 24px;
+}
+
+.game-message h2 {
+  margin: 7px 0;
+
+  font-size: 23px;
+}
+
+.game-message p:last-child {
+  margin: 0;
+
+  color: #829aaa;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .game-stats {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .badges-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .level-top {
+    align-items: flex-start;
+  }
+
+  .total-xp {
+    display: none;
+  }
+
+}
+
+@media (max-width: 520px) {
+
+  .level-card {
+    padding: 22px;
+  }
+
+  .level-badge {
+    width: 65px;
+    height: 65px;
+  }
+
+  .level-badge strong {
+    font-size: 24px;
+  }
+
+  .level-info h2 {
+    font-size: 20px;
+  }
+
+  .game-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .game-message {
+    align-items: flex-start;
+  }
+
+}

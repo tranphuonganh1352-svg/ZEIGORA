@@ -335,13 +335,13 @@ function App() {
 
       {page === "research" && <Research />}
 
-      {page === "achievements" && (
-        <Achievements
-          taskStats={taskStats}
-          pomodoroStats={pomodoroStats}
-        />
-      )}
-
+     {page === "achievements" && (
+  <Achievements
+    taskStats={taskStats}
+    pomodoroStats={pomodoroStats}
+    focusStreak={focusStreak}
+  />
+)}
       {page === "survey" && <Survey />}
     </div>
   );
