@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
 import "./index.css";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
+
 import Overview from "./Pages/Overview";
 import Research from "./Pages/Research";
 import Achievements from "./Pages/Achievements";
 import Survey from "./Pages/Survey";
-import UpdatePassword from "./Pages/UpdatePassword";
 
 import Navbar from "./components/Navbar";
-import { supabase } from "./supabase";
 
 function App() {
-  const [page, setPage] = useState("home");
-  const [user, setUser] = useState(null);
-const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState("overview");
+
   const [taskStats, setTaskStats] = useState({
     total: 0,
     completed: 0,
@@ -27,332 +23,259 @@ const [loading, setLoading] = useState(true);
   });
 
   const [focusStreak, setFocusStreak] = useState(0);
-  
- const loadFocusStreak = async () => {
-  if (!user?.id) return;
 
-  const { data, error } = await supabase
-    .from("pomodoro_sessions")
-    .select("completed_at")
-    .eq("user_id", user.id)
-    .order("completed_at", { ascending: false });
+  // =========================
+  // POMODORO STATS
+  // =========================
 
-  if (error) {
-    console.error("Lỗi lấy chuỗi tập trung:", error);
-    return;
-  }
+  const loadPomodoroStats = () => {
+    const saved = localStorage.getItem(
+      "zeigora_pomodoro"
+    );
 
-  const completedDays = new Set(
-    (data || [])
-      .filter((session) => session.completed_at)
-      .map((session) => {
-        const date = new Date(session.completed_at);
+    if (!saved) {
+      setPomodoroStats({
+        sessions: 0,
+        minutes: 0,
+      });
+      return;
+    }
 
+    try {
+      const data = JSON.parse(saved);
+
+      const today = new Date()
+        .toISOString()
+        .split("T")[0];
+
+      const todaySessions = (
+        data.sessions || []
+      ).filter(
+        (session) => session.date === today
+      );
+
+      const sessions = todaySessions.length;
+
+      const minutes = todaySessions.reduce(
+        (total, session) =>
+          total + Number(session.duration || 0),
+        0
+      );
+
+      setPomodoroStats({
+        sessions,
+        minutes,
+      });
+    } catch (error) {
+      console.error(
+        "Lỗi đọc Pomodoro:",
+        error
+      );
+
+      setPomodoroStats({
+        sessions: 0,
+        minutes: 0,
+      });
+    }
+  };
+
+  // =========================
+  // FOCUS STREAK
+  // =========================
+
+  const loadFocusStreak = () => {
+    const saved = localStorage.getItem(
+      "zeigora_pomodoro"
+    );
+
+    if (!saved) {
+      setFocusStreak(0);
+      return;
+    }
+
+    try {
+      const data = JSON.parse(saved);
+
+      const sessions = data.sessions || [];
+
+      const completedDays = new Set(
+        sessions
+          .filter(
+            (session) => session.completedAt
+          )
+          .map((session) => {
+            const date = new Date(
+              session.completedAt
+            );
+
+            return `${date.getFullYear()}-${String(
+              date.getMonth() + 1
+            ).padStart(2, "0")}-${String(
+              date.getDate()
+            ).padStart(2, "0")}`;
+          })
+      );
+
+      const getDateKey = (date) => {
         return `${date.getFullYear()}-${String(
           date.getMonth() + 1
         ).padStart(2, "0")}-${String(
           date.getDate()
         ).padStart(2, "0")}`;
-      })
-  );
+      };
 
-  const getDateKey = (date) => {
-    return `${date.getFullYear()}-${String(
-      date.getMonth() + 1
-    ).padStart(2, "0")}-${String(
-      date.getDate()
-    ).padStart(2, "0")}`;
+      const today = new Date();
+      const todayKey = getDateKey(today);
+
+      let streak = 0;
+
+      // Hôm nay chưa tập trung
+      // → vẫn giữ chuỗi của hôm qua
+      let daysAgo = completedDays.has(
+        todayKey
+      )
+        ? 0
+        : 1;
+
+      while (true) {
+        const checkDate = new Date(today);
+
+        checkDate.setDate(
+          today.getDate() - daysAgo
+        );
+
+        const dateKey =
+          getDateKey(checkDate);
+
+        if (
+          !completedDays.has(dateKey)
+        ) {
+          break;
+        }
+
+        streak++;
+        daysAgo++;
+      }
+
+      setFocusStreak(streak);
+    } catch (error) {
+      console.error(
+        "Lỗi đọc chuỗi tập trung:",
+        error
+      );
+
+      setFocusStreak(0);
+    }
   };
 
-  const today = new Date();
-  const todayKey = getDateKey(today);
+  // =========================
+  // LOAD DỮ LIỆU
+  // =========================
 
-  let streak = 0;
-
-  // Hôm nay chưa làm → tính từ hôm qua
-  let daysAgo = completedDays.has(todayKey) ? 0 : 1;
-
-  while (true) {
-    const checkDate = new Date(today);
-    checkDate.setDate(today.getDate() - daysAgo);
-
-    const dateKey = getDateKey(checkDate);
-
-    if (!completedDays.has(dateKey)) {
-      break;
-    }
-
-    streak++;
-    daysAgo++;
-  }
-
-  setFocusStreak(streak);
-};
-
-const loadPomodoroStats = () => {
-  const saved = localStorage.getItem("zeigora_pomodoro");
-
-  if (!saved) {
-    setPomodoroStats({
-      sessions: 0,
-      minutes: 0,
-    });
-    return;
-  }
-
-  try {
-    const data = JSON.parse(saved);
-    const today = new Date().toISOString().split("T")[0];
-
-    const todaySessions = (data.sessions || []).filter(
-      (session) => session.date === today
-    );
-
-    const sessions = todaySessions.length;
-
-    const minutes = todaySessions.reduce(
-      (total, session) =>
-        total + Number(session.duration || 0),
-      0
-    );
-
-    setPomodoroStats({
-      sessions,
-      minutes,
-    });
-  } catch (error) {
-    console.error("Lỗi đọc dữ liệu Pomodoro:", error);
-
-    setPomodoroStats({
-      sessions: 0,
-      minutes: 0,
-    });
-  }
-};
-
-useEffect(() => {
-  loadPomodoroStats();
-}, []);
-
-  // Kiểm tra trạng thái đăng nhập
   useEffect(() => {
-    const getSession = async () => {
-      const { data } = await supabase.auth.getSession();
+    loadPomodoroStats();
+    loadFocusStreak();
+  }, []);
 
-      if (data.session?.user) {
-        const currentUser = data.session.user;
+  // =========================
+  // TẢI LẠI KHI QUAY LẠI TAB
+  // =========================
 
-        setUser({
-          id: currentUser.id,
-          email: currentUser.email,
-          name:
-            currentUser.user_metadata?.full_name ||
-            "Bạn",
-        });
-
-        setPage("overview");
-      }
-
-      setLoading(false);
+  useEffect(() => {
+    const handleStorageChange = () => {
+      loadPomodoroStats();
+      loadFocusStreak();
     };
 
-    getSession();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        if (session?.user) {
-          const currentUser = session.user;
-
-          setUser({
-            id: currentUser.id,
-            email: currentUser.email,
-            name:
-              currentUser.user_metadata?.full_name ||
-              "Bạn",
-          });
-
-          setPage("overview");
-        } else {
-          setUser(null);
-          setPage("home");
-        }
-      }
+    window.addEventListener(
+      "storage",
+      handleStorageChange
     );
 
     return () => {
-      subscription.unsubscribe();
+      window.removeEventListener(
+        "storage",
+        handleStorageChange
+      );
     };
   }, []);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    setPage("home");
+  // =========================
+  // NAVBAR
+  // =========================
+
+  const fakeUser = {
+    name: "Bạn",
   };
 
-  if (loading) {
-    return (
-      <div
-        className="app"
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <p style={{ color: "#b7d5e6" }}>
-          Đang mở ZEIGORA...
-        </p>
-      </div>
-    );
-  }
-// Đặt lại mật khẩu
-if (window.location.pathname === "/update-password") {
-  return <UpdatePassword />;
-}
-
-  // Đăng nhập
-  if (page === "login") {
-    return (
-      <Login
-        onRegister={() => setPage("register")}
-        onLoginSuccess={(loggedInUser) => {
-          setUser(loggedInUser);
-          setPage("overview");
-        }}
-      />
-    );
-  }
-
-  // Đăng ký
-  if (page === "register") {
-    return (
-      <Register
-        onLogin={() => setPage("login")}
-      />
-    );
-  }
-
-  // Trang chủ
-  if (!user) {
-    return (
-      <div className="app">
-        <header className="navbar">
-          <div className="logo">
-            <span className="logo-icon">Z</span>
-            ZEIGORA
-          </div>
-
-          <button
-            className="login-button"
-            onClick={() => setPage("login")}
-          >
-            Đăng nhập
-          </button>
-        </header>
-
-        <main className="hero">
-          <div className="hero-content">
-            <p className="label">
-              NGHIÊN CỨU KHOA HỌC
-            </p>
-
-            <h1>
-              Hoàn thành điều
-              <br />
-              <span>còn dang dở.</span>
-            </h1>
-
-            <p className="description">
-              ZEIGORA là ứng dụng hỗ trợ học sinh THPT
-              quản lí mục tiêu học tập dựa trên Hiệu ứng
-              Zeigarnik, giúp duy trì sự tập trung và từng
-              bước hoàn thành những mục tiêu còn dang dở.
-            </p>
-
-            <div className="buttons">
-              <button
-                className="primary-button"
-                onClick={() => setPage("login")}
-              >
-                Bắt đầu sử dụng →
-              </button>
-
-              <button
-                className="secondary-button"
-                onClick={() => setPage("survey")}
-              >
-                Tham gia khảo sát
-              </button>
-            </div>
-
-            <p className="author">
-              Nghiên cứu của{" "}
-              <strong>Trần Bình Phương Anh</strong>
-            </p>
-          </div>
-
-          <div className="hero-card">
-            <p>TIẾN ĐỘ HÔM NAY</p>
-
-            <div className="circle">
-              <strong>72%</strong>
-              <span>hoàn thành</span>
-            </div>
-
-            <div className="stats">
-              <div>
-                <strong>8</strong>
-                <span>Đã hoàn thành</span>
-              </div>
-
-              <div>
-                <strong>3</strong>
-                <span>Còn lại</span>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  // Các trang dành cho người dùng đã đăng nhập
   return (
     <div className="app">
+
       <Navbar
-        user={user}
+        user={fakeUser}
         currentPage={page}
         onNavigate={setPage}
-        onLogout={handleLogout}
+        onLogout={() => {
+          // Không còn đăng nhập
+          // nên nút logout không làm gì
+        }}
       />
 
+      {/* =========================
+          OVERVIEW
+      ========================= */}
+
       {page === "overview" && (
-<Overview
-  user={user}
-  taskStats={taskStats}
-  setTaskStats={setTaskStats}
-  pomodoroStats={pomodoroStats}
-  loadPomodoroStats={loadPomodoroStats}
-  loadFocusStreak={loadFocusStreak}
-  focusStreak={focusStreak}
-  onNavigate={setPage}
-/>
+        <Overview
+          user={fakeUser}
+
+          taskStats={taskStats}
+          setTaskStats={setTaskStats}
+
+          pomodoroStats={pomodoroStats}
+
+          loadPomodoroStats={
+            loadPomodoroStats
+          }
+
+          loadFocusStreak={
+            loadFocusStreak
+          }
+
+          focusStreak={focusStreak}
+
+          onNavigate={setPage}
+        />
       )}
 
-      {page === "research" && <Research />}
+      {/* =========================
+          RESEARCH
+      ========================= */}
 
-     {page === "achievements" && (
-  <Achievements
-    taskStats={taskStats}
-    pomodoroStats={pomodoroStats}
-    focusStreak={focusStreak}
-  />
-)}
-      {page === "survey" && <Survey />}
+      {page === "research" && (
+        <Research />
+      )}
+
+      {/* =========================
+          ACHIEVEMENTS
+      ========================= */}
+
+      {page === "achievements" && (
+        <Achievements
+          taskStats={taskStats}
+          pomodoroStats={pomodoroStats}
+          focusStreak={focusStreak}
+        />
+      )}
+
+      {/* =========================
+          SURVEY
+      ========================= */}
+
+      {page === "survey" && (
+        <Survey />
+      )}
+
     </div>
   );
 }
