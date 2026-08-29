@@ -121,12 +121,11 @@ function Overview({
       </section>
 
       <section className="pomodoro-section">
-       <Pomodoro
-  user={user}
+      <Pomodoro
   onPomodoroComplete={() => {
     loadPomodoroStats();
-    loadFocusStreak();
   }}
+/>
 />
 
         <div className="pomodoro-stat">

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import "./index.css";
-
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Overview from "./Pages/Overview";
@@ -15,8 +14,7 @@ import { supabase } from "./supabase";
 function App() {
   const [page, setPage] = useState("home");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
+const [loading, setLoading] = useState(true);
   const [taskStats, setTaskStats] = useState({
     total: 0,
     completed: 0,
@@ -91,26 +89,28 @@ function App() {
   setFocusStreak(streak);
 };
 
-  const loadPomodoroStats = async () => {
-    if (!user?.id) return;
+const loadPomodoroStats = () => {
+  const saved = localStorage.getItem("zeigora_pomodoro");
 
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
+  if (!saved) {
+    setPomodoroStats({
+      sessions: 0,
+      minutes: 0,
+    });
+    return;
+  }
 
-    const { data, error } = await supabase
-      .from("pomodoro_sessions")
-      .select("duration")
-      .eq("user_id", user.id)
-      .gte("completed_at", startOfDay.toISOString());
+  try {
+    const data = JSON.parse(saved);
+    const today = new Date().toISOString().split("T")[0];
 
-    if (error) {
-      console.error("Lỗi lấy Pomodoro:", error);
-      return;
-    }
+    const todaySessions = (data.sessions || []).filter(
+      (session) => session.date === today
+    );
 
-    const sessions = data?.length || 0;
+    const sessions = todaySessions.length;
 
-    const minutes = (data || []).reduce(
+    const minutes = todaySessions.reduce(
       (total, session) =>
         total + Number(session.duration || 0),
       0
@@ -120,14 +120,19 @@ function App() {
       sessions,
       minutes,
     });
-  };
+  } catch (error) {
+    console.error("Lỗi đọc dữ liệu Pomodoro:", error);
 
- useEffect(() => {
-  if (!user?.id) return;
+    setPomodoroStats({
+      sessions: 0,
+      minutes: 0,
+    });
+  }
+};
 
+useEffect(() => {
   loadPomodoroStats();
-  loadFocusStreak();
-}, [user]);
+}, []);
 
   // Kiểm tra trạng thái đăng nhập
   useEffect(() => {

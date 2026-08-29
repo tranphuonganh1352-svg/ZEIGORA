@@ -1,17 +1,30 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../supabase";
 
 const WORK_TIME = 25 * 60;
 const DEFAULT_SHORT_BREAK = 5;
 const DEFAULT_LONG_BREAK = 15;
 
-function Pomodoro({ user, onPomodoroComplete }) {
+function Pomodoro({ onPomodoroComplete }) {
   const [mode, setMode] = useState("work");
-
   const [seconds, setSeconds] = useState(WORK_TIME);
   const [running, setRunning] = useState(false);
 
-  const [completedSessions, setCompletedSessions] = useState(0);
+  const [completedSessions, setCompletedSessions] = useState(() => {
+    const saved = localStorage.getItem("zeigora_pomodoro");
+
+    if (!saved) return 0;
+
+    try {
+      const data = JSON.parse(saved);
+      const today = new Date().toISOString().split("T")[0];
+
+      return (data.sessions || []).filter(
+        (session) => session.date === today
+      ).length;
+    } catch {
+      return 0;
+    }
+  });
 
   const [shortBreak, setShortBreak] = useState(
     DEFAULT_SHORT_BREAK
@@ -52,47 +65,73 @@ function Pomodoro({ user, onPomodoroComplete }) {
     if (seconds !== 0 || !running) return;
 
     handleTimerComplete();
-  }, [seconds]);
+  }, [seconds, running]);
 
-  const handleTimerComplete = async () => {
+  const handleTimerComplete = () => {
     setRunning(false);
 
-    // -------------------------
-    // KẾT THÚC PHIÊN TẬP TRUNG
-    // -------------------------
+    // =========================
+    // HOÀN THÀNH PHIÊN TẬP TRUNG
+    // =========================
 
     if (mode === "work") {
-      if (user?.id) {
-        const { error } = await supabase
-          .from("pomodoro_sessions")
-          .insert({
-            user_id: user.id,
-            duration: 25,
-          });
+      const today = new Date()
+        .toISOString()
+        .split("T")[0];
 
-        if (error) {
-          console.error(
-            "Lỗi lưu Pomodoro:",
-            error
-          );
+      const newSession = {
+        date: today,
+        duration: 25,
+        completedAt: new Date().toISOString(),
+      };
+
+      let savedData = {
+        sessions: [],
+      };
+
+      try {
+        const saved = localStorage.getItem(
+          "zeigora_pomodoro"
+        );
+
+        if (saved) {
+          savedData = JSON.parse(saved);
         }
+      } catch {
+        savedData = {
+          sessions: [],
+        };
       }
+
+      if (!Array.isArray(savedData.sessions)) {
+        savedData.sessions = [];
+      }
+
+      savedData.sessions.push(newSession);
+
+      localStorage.setItem(
+        "zeigora_pomodoro",
+        JSON.stringify(savedData)
+      );
 
       const newSessionCount =
         completedSessions + 1;
 
       setCompletedSessions(newSessionCount);
 
+      // Cập nhật Overview
       if (onPomodoroComplete) {
         onPomodoroComplete();
       }
 
-      // Sau 4 phiên → nghỉ dài
+      // =========================
+      // SAU 4 PHIÊN → NGHỈ DÀI
+      // =========================
+
       if (newSessionCount % 4 === 0) {
         setMode("long-break");
         setSeconds(longBreak * 60);
       } else {
-        // Các phiên bình thường → nghỉ ngắn
         setMode("short-break");
         setSeconds(shortBreak * 60);
       }
@@ -100,9 +139,9 @@ function Pomodoro({ user, onPomodoroComplete }) {
       return;
     }
 
-    // -------------------------
+    // =========================
     // KẾT THÚC NGHỈ
-    // -------------------------
+    // =========================
 
     setMode("work");
     setSeconds(WORK_TIME);
@@ -137,7 +176,7 @@ function Pomodoro({ user, onPomodoroComplete }) {
   };
 
   // =========================
-  // ĐỔI SANG NGHỈ NGAY
+  // NGHỈ NGAY
   // =========================
 
   const startBreak = () => {
@@ -148,7 +187,7 @@ function Pomodoro({ user, onPomodoroComplete }) {
   };
 
   // =========================
-  // ĐỔI SANG TẬP TRUNG
+  // BỎ QUA NGHỈ
   // =========================
 
   const skipBreak = () => {
@@ -190,7 +229,6 @@ function Pomodoro({ user, onPomodoroComplete }) {
       {/* HEADER */}
 
       <div className="pomodoro-header">
-
         <div>
           <p className="label">POMODORO</p>
 
@@ -207,15 +245,12 @@ function Pomodoro({ user, onPomodoroComplete }) {
         >
           ⚙
         </button>
-
       </div>
 
       {/* TIMER */}
 
       <div className="pomodoro-timer-wrapper">
-
         <div className="pomodoro-timer">
-
           <strong>{formattedTime}</strong>
 
           <span>
@@ -223,15 +258,12 @@ function Pomodoro({ user, onPomodoroComplete }) {
               ? "tập trung"
               : "nghỉ ngơi"}
           </span>
-
         </div>
-
       </div>
 
       {/* CONTROLS */}
 
       <div className="pomodoro-controls">
-
         <button
           className="primary-button"
           onClick={toggleTimer}
@@ -245,7 +277,6 @@ function Pomodoro({ user, onPomodoroComplete }) {
         >
           Đặt lại
         </button>
-
       </div>
 
       {/* BREAK CONTROLS */}
@@ -272,32 +303,23 @@ function Pomodoro({ user, onPomodoroComplete }) {
       {/* SESSION COUNT */}
 
       <div className="pomodoro-session-count">
-
-        <span>
-          Phiên hôm nay
-        </span>
+        <span>Phiên hôm nay</span>
 
         <strong>
           {completedSessions}
         </strong>
-
       </div>
 
       {/* SETTINGS */}
 
       {showSettings && (
         <div className="pomodoro-settings">
-
           <h3>Thời gian nghỉ</h3>
 
           <div className="break-setting">
-
-            <label>
-              Nghỉ ngắn
-            </label>
+            <label>Nghỉ ngắn</label>
 
             <div className="break-input">
-
               <button
                 onClick={() =>
                   setShortBreak(
@@ -308,9 +330,7 @@ function Pomodoro({ user, onPomodoroComplete }) {
                 −
               </button>
 
-              <strong>
-                {shortBreak}
-              </strong>
+              <strong>{shortBreak}</strong>
 
               <button
                 onClick={() =>
@@ -323,19 +343,13 @@ function Pomodoro({ user, onPomodoroComplete }) {
               </button>
 
               <span>phút</span>
-
             </div>
-
           </div>
 
           <div className="break-setting">
-
-            <label>
-              Nghỉ dài
-            </label>
+            <label>Nghỉ dài</label>
 
             <div className="break-input">
-
               <button
                 onClick={() =>
                   setLongBreak(
@@ -346,9 +360,7 @@ function Pomodoro({ user, onPomodoroComplete }) {
                 −
               </button>
 
-              <strong>
-                {longBreak}
-              </strong>
+              <strong>{longBreak}</strong>
 
               <button
                 onClick={() =>
@@ -361,19 +373,15 @@ function Pomodoro({ user, onPomodoroComplete }) {
               </button>
 
               <span>phút</span>
-
             </div>
-
           </div>
 
           <p className="pomodoro-settings-note">
             Sau 4 phiên tập trung, ZEIGORA sẽ
             tự động chuyển sang nghỉ dài.
           </p>
-
         </div>
       )}
-
     </div>
   );
 }
