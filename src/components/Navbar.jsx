@@ -33,12 +33,7 @@ function Navbar({ user, onNavigate, onLogout, currentPage }) {
       <div className="navbar-user">
         <span>Xin chào, {user?.name}</span>
 
-        <button
-          className="login-button"
-          onClick={onLogout}
-        >
-          Đăng xuất
-        </button>
+        
       </div>
     </header>
   );
